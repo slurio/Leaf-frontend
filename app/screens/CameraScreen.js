@@ -4,9 +4,10 @@ import { Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 
 
-function CameraScreen({navigation}) {
+function CameraScreen({navigation, route}) {
+  console.log(route)
   const [hasPermission, setHasPermission] = useState(null);
-  const [cameraRef, setCameraRef] = useState(null)
+  const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
 
   useEffect(() => {
@@ -50,13 +51,8 @@ function CameraScreen({navigation}) {
           </TouchableOpacity>
           <TouchableOpacity style={{alignSelf: 'center'}} onPress={async() => {
             if(cameraRef){
-              cameraRef.takePictureAsync({
-                base64: true,
-              }).then(data => {
-                      console.log(data.base64)
-                      });
-              // let photo = await cameraRef.takePictureAsync(base64: true);
-              // console.log('photo', photo);
+              let photo = await cameraRef.takePictureAsync({base64: true});
+              navigation.push('ScanScreen', photo)              
             }
           }}>
             <View style={{ 

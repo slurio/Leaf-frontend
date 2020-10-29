@@ -6,7 +6,6 @@ function OpenScreen({navigation}) {
     
     return(
         <Background
-        resizeMode=fit
             source={require('../assets/bg.png')}>
              <LogoContainer>
                  <Logo>ORIGIN</Logo>
