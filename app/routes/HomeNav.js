@@ -16,10 +16,10 @@ export default function HomeNav() {
         <Tab.Navigator
             initialRouteName="Home"
             activeColor="white"
-            inactiveColor="#292d2c"
+            inactiveColor="#222222"
             shifting={false}
             labelStyle={{ fontSize: 12 }}
-            barStyle={{ backgroundColor: '#d8ebd8' }}
+            barStyle={{ backgroundColor: '#dbf1da' }}
         >
             <Tab.Screen 
                 name="Home"
