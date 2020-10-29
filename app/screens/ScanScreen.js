@@ -6,7 +6,7 @@ function ScanScreen({navigation}) {
     return(
         <StyledView>
              <Text>Scan Here!</Text>
-             <Button title="Camera" onPress={()=> navigation.navigate('Camera')}/>
+             <Button title="Camera" onPress={()=> navigation.navigate('CameraScreen')}/>
          </StyledView>
     )
 }

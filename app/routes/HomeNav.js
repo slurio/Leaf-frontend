@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Home from '../screens/Home';
 
@@ -14,19 +15,21 @@ export default function HomeNav() {
     return(
         <Tab.Navigator
             initialRouteName="Home"
-            activeColor="navy"
+            activeColor="white"
+            inactiveColor="#292d2c"
+            shifting={false}
             labelStyle={{ fontSize: 12 }}
-            // style={{ backgroundColor: 'black' }}
+            barStyle={{ backgroundColor: '#d8ebd8' }}
         >
             <Tab.Screen 
                 name="Home"
                 component={Home}
-                // options={{
-                //     tabBarLabel: 'Home',
-                //     tabBarIcon: () => (
-                //       <MaterialCommunityIcons name="home" color='white' size={26} />
-                //     ),
-                // }}
+                options={{
+                    tabBarLabel: 'Home',
+                    tabBarIcon: () => (
+                      <MaterialCommunityIcons name="home" color='white' size={26} />
+                    ),
+                }}
             />
             <Tab.Screen
                 name="Favorites"
