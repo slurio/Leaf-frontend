@@ -4,8 +4,8 @@ import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import { Camera } from 'expo-camera';
 
 
-function CameraScreen({navigation, route}) {
-  console.log(route)
+function AdditionalCameraScreen({navigation, route}) {
+  console.log('2ND SCREEN :',route)
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
@@ -52,10 +52,7 @@ function CameraScreen({navigation, route}) {
           <TouchableOpacity style={{alignSelf: 'center'}} onPress={async() => {
             if(cameraRef){
               photo = await cameraRef.takePictureAsync({base64: true});
-              Alert.alert("Additional Photo", "message", [
-                {text: "Yes", onPress: () => navigation.push('AdditionalCameraScreen', photo)},
-                {text: "No", onPress: () => navigation.push('ScanScreen', {photos: photo})}
-              ])             
+              navigation.push('ScanScreen', {photos: [photo, route.params]})               
             }
           }}>
             <View style={{ 
@@ -84,7 +81,7 @@ function CameraScreen({navigation, route}) {
   );
 }
 
-export default CameraScreen
+export default AdditionalCameraScreen
 
 
 

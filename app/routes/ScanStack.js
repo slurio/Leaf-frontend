@@ -5,6 +5,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import ScanScreen from '../screens/ScanScreen';
 import CameraScreen from '../screens/CameraScreen';
+import AdditionalCameraScreen from '../screens/AdditionalCameraScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -14,6 +16,7 @@ const ScanStack = () => {
             <Stack.Navigator headerMode={"none"}>
               <Stack.Screen name="ScanScreen" component={ScanScreen}/>
               <Stack.Screen name="CameraScreen" component={CameraScreen} />
+              <Stack.Screen name="AdditionalCameraScreen" component={AdditionalCameraScreen} />
             </Stack.Navigator>
         </View>
     );
