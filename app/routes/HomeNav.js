@@ -15,9 +15,9 @@ export default function HomeNav() {
     return(
         <Tab.Navigator
             initialRouteName="Home"
-            activeColor="white"
+            activeColor="#222222"
             inactiveColor="#222222"
-            shifting={false}
+            // shifting={false}
             labelStyle={{ fontSize: 12 }}
             barStyle={{ backgroundColor: '#dbf1da' }}
         >
@@ -27,21 +27,39 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="home" color='white' size={26} />
+                      <MaterialCommunityIcons name="home-outline" color='#222222' size={26} />
                     ),
                 }}
             />
             <Tab.Screen
                 name="Favorites"
-                component={FavoriteStack} 
+                component={FavoriteStack}
+                options={{
+                    tabBarLabel: 'Favorites',
+                    tabBarIcon: () => (
+                      <MaterialCommunityIcons name="heart-outline" color='#222222' size={26} />
+                    ),
+                }} 
             />
             <Tab.Screen
                 name="Scan"
-                component={ScanStack} 
+                component={ScanStack}
+                options={{
+                    tabBarLabel: 'Scan',
+                    tabBarIcon: () => (
+                      <MaterialCommunityIcons name="tag-outline" color='#222222' size={26} />
+                    ),
+                }}  
             />
             <Tab.Screen 
                 name="Profile"
                 component={Profile}
+                options={{
+                    tabBarLabel: 'Profile',
+                    tabBarIcon: () => (
+                      <MaterialCommunityIcons name="account-outline" color='#222222' size={26} />
+                    ),
+                }} 
             />
         </Tab.Navigator>
     )

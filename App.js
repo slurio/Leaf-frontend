@@ -7,6 +7,7 @@ import { View } from "react-native";
 import HomeNav from "./app/routes/HomeNav";
 import OpenScreen from "./app/screens/OpenScreen";
 import SignupScreen from "./app/screens/SignupScreen";
+import SignInScreen from "./app/screens/SignInScreen";
 
 import {createStore, applyMiddleware} from 'redux'; 
 import { Provider } from 'react-redux';
@@ -32,6 +33,7 @@ export default function App() {
           <Stack.Navigator headerMode={"none"}>
             <Stack.Screen name="OpenScreen" component={OpenScreen} />
             <Stack.Screen name="HomeNav" component={HomeNav} />
+            <Stack.Screen name="SignInScreen" component={SignInScreen} />
             <Stack.Screen name="SignupScreen" component={SignupScreen} />
           </Stack.Navigator>
         </NavigationContainer>
