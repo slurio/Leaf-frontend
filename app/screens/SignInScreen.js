@@ -1,11 +1,22 @@
 import React, {useState} from 'react'
 import styled from 'styled-components/native'
-import { TextInput, Button, TouchableOpacity, Text, View} from 'react-native'
 
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../redux/action'
 
-function SignInScreen({navigation}) {
+import { HOST_WITH_PORT } from '../environment';
+
+function SignInScreen({navigation}, props) {
    const [username,setUsername] = useState('')
    const [password,setPassword] = useState('')
+
+    const user = useSelector(state => state.user)
+    const dispatch = useDispatch()
+
+    if(user){
+        navigation.navigate('HomeNav')
+    }
+
 
     const renderPassword = (text) => {
         setPassword(text)
@@ -14,9 +25,30 @@ function SignInScreen({navigation}) {
     const renderUsername = (text) => {
         setUsername(text)
     }
+
+    const submitHandler = () => {
+        let userObj = {
+            username: username,
+            password: password
+        }
+        let options={
+                method: "POST",
+                headers: {
+                    'content-type': 'application/json',
+                    'accept': 'application/json'
+                },
+                body: JSON.stringify(userObj)
+            }
+    
+            fetch(`${HOST_WITH_PORT}/users/`, options)
+            .then(resp=> resp.json())
+            .then(data => dispatch(loginUser(data)))
+        }    
     
     return(
         <StyledView>
+            <StyledContainer>
+
             <Logo>The Thread</Logo>
             <GreetingContainer>
                 <SignIn>Sign In</SignIn>
@@ -35,16 +67,43 @@ function SignInScreen({navigation}) {
                 value={password}
                 onChangeText={text => renderPassword(text)}
              />
-             <Container onPress={()=> navigation.navigate('HomeNav')}>
+             <Container onPress={()=> submitHandler()}>
                  <StyledButtonText>Enter!</StyledButtonText>
             </Container>
+            <SignUpContainer>
+                <StyledText>Don't have an account?</StyledText>
+                <Link onPress={()=> navigation.navigate('SignupScreen')}>Sign Up</Link>
+            </SignUpContainer>
+            </StyledContainer>
          </StyledView>
     )
 }
 
 export default SignInScreen;
 
-// #222222
+const StyledContainer = styled.View`
+    top: 100px;
+    align-items: center;
+`
+
+ const SignUpContainer = styled.View`
+    margin-top: 15px;
+    flex: 1;
+    flex-direction: row;
+    color: #222;
+ `
+
+ const StyledText = styled.Text`
+    font-size: 16px;
+    margin-right: 5px;
+
+ `
+
+ const Link = styled.Text`
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration-line: underline;
+ `
 
 const Logo = styled.Text`
     color: #222;

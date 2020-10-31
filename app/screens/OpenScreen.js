@@ -1,21 +1,48 @@
 import React from 'react'
 import styled from 'styled-components/native'
 import { Text, Button, View, Image} from 'react-native';
+import {connect} from 'react-redux';
 
-function OpenScreen({navigation}) {    
+function OpenScreen({navigation}, props) {  
+    console.log(props)  
     return(
         <Background
             source={require('../assets/bg.png')}>
              <LogoContainer>
                  <Logo>The Thread</Logo>
              </LogoContainer>
-             <Button title="Sign In" onPress={()=> navigation.navigate('SignInScreen')}/>
-             <Button title="Sign Up" onPress={()=> navigation.navigate('SignupScreen')}/>
+             <LogInButton onPress={()=> navigation.navigate('SignInScreen')}>
+                <StyledText>Sign In!</StyledText>
+             </LogInButton>
+             <SignUpButton onPress={()=> navigation.navigate('SignupScreen')}>
+                <StyledText>Sign Up!</StyledText>
+             </SignUpButton>
          </Background>
     )
 }
+
 export default OpenScreen;
 
+const StyledText = styled.Text`
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+`
+
+const LogInButton = styled.TouchableOpacity`
+    width: 450px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    background-color:#B7D1D6;
+`
+const SignUpButton = styled.TouchableOpacity`
+    width: 450px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    background-color:#81A4CD;
+`
 const Background = styled.ImageBackground`
   flex: 1;
   justify-content: flex-end;

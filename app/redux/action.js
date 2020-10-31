@@ -1,4 +1,2 @@
-export const getTagInfo = (tagInfo) => {
+export  const loginUser = (userObj) => ({type: "login user", payload: userObj})
 
-    return console.log('get info!!!')
-}
