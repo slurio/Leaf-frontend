@@ -52,7 +52,7 @@ const Background = styled.ImageBackground`
 
 const LogoContainer = styled.View`
     position: absolute;
-    top: 100px;
+    top: 70px;
     align-items: center;
 `
 const Logo = styled.Text`
@@ -60,4 +60,5 @@ const Logo = styled.Text`
     font-size: 45px;
     font-weight: bold;
     letter-spacing: 4px;
+    font-family: Lora_400Regular;
 `

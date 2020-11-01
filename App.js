@@ -1,11 +1,13 @@
 import "react-native-gesture-handler";
-import React from "react";
+import React, {useState} from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Text, View } from "react-native";
-import * as Font from 'expo-font'
-import { AppLoading } from 'expo'
-import { useFonts } from '@use-expo/font';
+import { View } from "react-native";
+
+import { AppLoading } from 'expo';
+import { useFonts, Lora_400Regular } from '@expo-google-fonts/lora';
+
+
 
 import HomeNav from "./app/routes/HomeNav";
 import OpenScreen from "./app/screens/OpenScreen";
@@ -29,17 +31,18 @@ const store = createStore(rootReducer)
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [isLoaded] = useFonts({
-    'Roboto-LightItalic': require('./app/assets/fonts/Roboto-LightItalic.ttf'),
-    });
 
-    if(!isLoaded) {
-      return <AppLoading/>
-    } else {
+  let [fontsLoaded] = useFonts({
+    Lora_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
       return (
         <Provider store={store}>
           <View style={{ flex: 1, paddingTop: 20 }}>
-            <Text style={{fontFamily: 'Roboto-ItalicLight'}}>Hello World</Text>
              <NavigationContainer>
               <Stack.Navigator headerMode={"none"}>
                 <Stack.Screen name="OpenScreen" component={OpenScreen} />
@@ -52,5 +55,5 @@ export default function App() {
         </Provider>
       )
 
-    }
+    
 }
