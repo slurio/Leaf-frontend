@@ -15,11 +15,11 @@ export default function HomeNav() {
     return(
         <Tab.Navigator
             initialRouteName="Home"
-            activeColor="#222222"
-            inactiveColor="#222222"
+            activeColor="#222"
+            inactiveColor="#222"
             // shifting={false}
             labelStyle={{ fontSize: 12 }}
-            barStyle={{ backgroundColor: '#dbf1da' }}
+            barStyle={{ backgroundColor: '#fff'}}
         >
             <Tab.Screen 
                 name="Home"
@@ -27,8 +27,8 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="home-outline" color='#222222' size={26} />
-                    ),
+                      <MaterialCommunityIcons name="home-outline" color='#222' size={26} />
+                    )
                 }}
             />
             <Tab.Screen
@@ -37,7 +37,7 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Favorites',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="heart-outline" color='#222222' size={26} />
+                      <MaterialCommunityIcons name="heart-outline" color='#222' size={26} />
                     ),
                 }} 
             />
@@ -47,7 +47,7 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Scan',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="tag-outline" color='#222222' size={26} />
+                      <MaterialCommunityIcons name="tag-outline" color='#222' size={26} />
                     ),
                 }}  
             />
@@ -57,7 +57,7 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="account-outline" color='#222222' size={26} />
+                      <MaterialCommunityIcons name="account-outline" color='#222' size={26} />
                     ),
                 }} 
             />

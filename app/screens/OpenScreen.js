@@ -1,21 +1,20 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { Text, Button, View, Image} from 'react-native';
-import {connect} from 'react-redux';
 
 function OpenScreen({navigation}, props) {  
     console.log(props)  
     return(
         <Background
-            source={require('../assets/bg.png')}>
-             <LogoContainer>
-                 <Logo>The Thread</Logo>
+            source={require('../assets/logo.png')}>
+             <LogoContainer> 
+                 <Logo>THE</Logo>
+                 <Logo>THREAD</Logo>
              </LogoContainer>
              <LogInButton onPress={()=> navigation.navigate('SignInScreen')}>
-                <StyledText>Sign In!</StyledText>
+                <StyledSignInText>SIGN IN</StyledSignInText>
              </LogInButton>
              <SignUpButton onPress={()=> navigation.navigate('SignupScreen')}>
-                <StyledText>Sign Up!</StyledText>
+                <StyledText>REGISTER</StyledText>
              </SignUpButton>
          </Background>
     )
@@ -24,24 +23,34 @@ function OpenScreen({navigation}, props) {
 export default OpenScreen;
 
 const StyledText = styled.Text`
-    color: white;
+    color: #3C413D;
     font-weight: bold;
     font-size: 20px;
+    font-family: Raleway_600SemiBold;
+`
+
+const StyledSignInText = styled.Text`
+    color: #fff;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: Raleway_600SemiBold;
 `
 
 const LogInButton = styled.TouchableOpacity`
-    width: 450px;
-    height: 70px;
+    width: 190px;
+    height: 55px;
+    top: -60px;
     align-items: center;
     justify-content: center;
-    background-color:#B7D1D6;
+    background-color: #3C413D;
 `
 const SignUpButton = styled.TouchableOpacity`
-    width: 450px;
-    height: 70px;
+    width: 190px;
+    height: 55px;
+    top: -40px;
     align-items: center;
     justify-content: center;
-    background-color:#81A4CD;
+    border: 1.5px solid #3C413D;
 `
 const Background = styled.ImageBackground`
   flex: 1;
@@ -52,13 +61,14 @@ const Background = styled.ImageBackground`
 
 const LogoContainer = styled.View`
     position: absolute;
-    top: 70px;
+    top: 110px;
     align-items: center;
 `
 const Logo = styled.Text`
-    color: #222222;
-    font-size: 45px;
+    color: #3C413D;
+    top: 2px;
+    font-size: 50px;
     font-weight: bold;
-    letter-spacing: 4px;
-    font-family: Lora_400Regular;
+    letter-spacing: 5px;
+    font-family: Raleway_600SemiBold;
 `

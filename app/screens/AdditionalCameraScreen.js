@@ -5,7 +5,6 @@ import { Camera } from 'expo-camera';
 
 
 function AdditionalCameraScreen({navigation, route}) {
-  console.log('2ND SCREEN :',route)
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);

@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
 
 import ScanScreen from '../screens/ScanScreen';
+import InstructionScreen from '../screens/InstructionScreen';
 import CameraScreen from '../screens/CameraScreen';
 import AdditionalCameraScreen from '../screens/AdditionalCameraScreen';
 import ResultScreen from '../screens/ResultScreen';
@@ -15,7 +16,8 @@ const ScanStack = () => {
         <View style={{ flex: 1, paddingTop: 20 }}>
             <Stack.Navigator headerMode={"none"}>
               <Stack.Screen name="ScanScreen" component={ScanScreen}/>
-              <Stack.Screen name="CameraScreen" component={CameraScreen} />
+              <Stack.Screen name="InstructionScreen" component={InstructionScreen}/>
+              <Stack.Screen name="CameraScreen" component={CameraScreen}/>
               <Stack.Screen name="AdditionalCameraScreen" component={AdditionalCameraScreen} />
               <Stack.Screen name="ResultScreen" component={ResultScreen} />
             </Stack.Navigator>

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, TouchableOpacity, Alert, Modal } from 'react-native';
 import { Camera } from 'expo-camera';
 
 
@@ -9,6 +9,8 @@ function CameraScreen({navigation, route}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [modalVisible, setModalVisible] = useState(false);
+
 
   useEffect(() => {
       (async () => {
@@ -35,26 +37,12 @@ function CameraScreen({navigation, route}) {
             backgroundColor: 'transparent',
             justifyContent: 'flex-end'
           }}>
-          <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: 'flex-end'
-            }}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignSelf: 'center'}} onPress={async() => {
+          <TouchableOpacity style={{alignSelf: 'center', marginBottom:20}} onPress={async() => {
             if(cameraRef){
               photo = await cameraRef.takePictureAsync({base64: true});
-              Alert.alert("Additional Photo", "message", [
-                {text: "Yes", onPress: () => navigation.push('AdditionalCameraScreen', photo)},
-                {text: "No", onPress: () => navigation.push('ScanScreen', {photos: photo})}
+              Alert.alert("Wish to retake 📷 ?", "Make sure you get as close as possible to tag and focus camera on it.", [
+                {text: "Yes", onPress: () => null},
+                {text: "No", onPress: () => navigation.push('ScanScreen', {frontTag: photo})}
               ])             
             }
           }}>

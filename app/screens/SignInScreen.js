@@ -13,8 +13,9 @@ function SignInScreen({navigation}, props) {
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
+ 
     if(user){
-        navigation.navigate('HomeNav')
+        navigation.navigate('HomeNav') 
     }
 
 
@@ -44,7 +45,6 @@ function SignInScreen({navigation}, props) {
             .then(resp=> resp.json())
             .then(data => dispatch(loginUser(data)))
         }    
-    
     return(
         <StyledView>
             <StyledContainer>
@@ -54,21 +54,22 @@ function SignInScreen({navigation}, props) {
                 <SignIn>Sign In</SignIn>
                 <Greeting>Hi there! Nice to see you again.</Greeting>
             </GreetingContainer>
+            {user === false ? <Error>Username or Password Incorrect!</Error> : null}
              <StyledTextInput
                 placeholder="Username"
-                placeholderTextColor="#B7D1D6"
+                placeholderTextColor="grey"
                 value={username}
                 onChangeText={text => renderUsername(text)}
              />
               <StyledTextInput
                 placeholder="Password"
-                placeholderTextColor="#B7D1D6"
+                placeholderTextColor="grey"
                 secureTextEntry={true}
                 value={password}
                 onChangeText={text => renderPassword(text)}
              />
              <Container onPress={()=> submitHandler()}>
-                 <StyledButtonText>Enter!</StyledButtonText>
+                 <StyledButtonText>ENTER</StyledButtonText>
             </Container>
             <SignUpContainer>
                 <StyledText>Don't have an account?</StyledText>
@@ -81,11 +82,16 @@ function SignInScreen({navigation}, props) {
 
 export default SignInScreen;
 
+const Error = styled.Text`
+    font-size: 16px;
+    font-family: Raleway_600SemiBold;
+    color: red;
+`
+
 const StyledContainer = styled.View`
     top: 100px;
     align-items: center;
 `
-
  const SignUpContainer = styled.View`
     margin-top: 15px;
     flex: 1;
@@ -96,13 +102,13 @@ const StyledContainer = styled.View`
  const StyledText = styled.Text`
     font-size: 16px;
     margin-right: 5px;
-
+    font-family: Raleway_300Light;
  `
 
  const Link = styled.Text`
     font-size: 16px;
-    font-weight: bold;
     text-decoration-line: underline;
+    font-family: Raleway_600SemiBold;
  `
 
 const Logo = styled.Text`
@@ -110,6 +116,7 @@ const Logo = styled.Text`
     font-weight: bold;
     font-size: 60px;
     padding-bottom: 25px;
+    font-family: Raleway_400Regular;
 `
 
 const GreetingContainer = styled.View`
@@ -119,14 +126,15 @@ const GreetingContainer = styled.View`
 const SignIn = styled.Text`
 font-size: 32px;
 color: #222;
-font-weight: bold;
 padding-bottom: 10px;
+font-family: Raleway_600SemiBold;
 `
 
 const Greeting = styled.Text`
 font-size: 18px;
 color: #222;
 padding-bottom: 20px;
+font-family: Raleway_300Light;
 `
 
 const Container = styled.TouchableOpacity`
@@ -136,31 +144,29 @@ borderRadius: 100px;
 align-items: center;
 justify-content: center;
 margin-top: 10px;
-background-color:#B7D1D6;
+border: 1.5px solid black;
 `
 
 const StyledButtonText = styled.Text`
-    color: white;
-    font-weight: bold;
+    color: #222;
     font-size: 20px;
+    font-family: Raleway_300Light;
 `
 
 
 const StyledTextInput = styled.TextInput`
     width: 250px;
     height: 35px;
-    background-color: white;
+    background-color: lightgrey;
     margin: 10px;
     padding: 8px;
     borderRadius: 14px;
     font-size: 18px;
-    font-weight: bold;
-    color: #222;
+    font-family: Raleway_300Light;
 `
 
 const StyledView = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
-    background-color: #dbf1da;
 ` 
