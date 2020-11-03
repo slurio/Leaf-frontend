@@ -18,6 +18,7 @@ import { useFonts,   Raleway_100Thin,
   Raleway_600SemiBold,
   Raleway_600SemiBold_Italic,
   Raleway_700Bold, } from '@expo-google-fonts/raleway';
+  import { NunitoSans_600SemiBold } from '@expo-google-fonts/nunito-sans'
 
 
 
@@ -30,9 +31,11 @@ import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
 
 
-const rootReducer = (currentState= {user:''}, action) => {
+const rootReducer = (currentState= {user:'', items: []}, action) => {
   if(action.type === "login user"){
-    return {...currentState, user: action.payload.username}
+    return {...currentState, user: action.payload, items: action.payload.items}
+  } else if(action.type === "favorite item"){
+    return {...currentState, items: [action.payload, ...currentState.items]}
   }else {
     return currentState
   }
@@ -58,6 +61,7 @@ export default function App() {
     Raleway_600SemiBold,
     Raleway_600SemiBold_Italic,
     Raleway_700Bold,
+    NunitoSans_600SemiBold,
   });
 
   if (!fontsLoaded) {
@@ -79,8 +83,8 @@ export default function App() {
                   title: 'The Thread',
                   headerLeft: null,
                   headerStyle: {
-                    backgroundColor: '#fff',
-                    height: 50,
+                    backgroundColor: '#DBDED5',
+                    height: 60,
                   },
                   headerTintColor: '#222',
                   headerTitleStyle: {

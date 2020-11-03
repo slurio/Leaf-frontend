@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 
 const ScanStack = () => {
     return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
+        <View style={{ flex: 1}}>
             <Stack.Navigator headerMode={"none"}>
               <Stack.Screen name="ScanScreen" component={ScanScreen}/>
               <Stack.Screen name="InstructionScreen" component={InstructionScreen}/>

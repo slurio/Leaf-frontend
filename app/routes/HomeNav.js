@@ -1,10 +1,8 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Home from '../screens/Home';
-
 import FavoriteStack from './FavoriteStack';
 import ScanStack from './ScanStack';
 import Profile from './ProfileStack';
@@ -17,9 +15,8 @@ export default function HomeNav() {
             initialRouteName="Home"
             activeColor="#222"
             inactiveColor="#222"
-            // shifting={false}
             labelStyle={{ fontSize: 12 }}
-            barStyle={{ backgroundColor: '#fff'}}
+            barStyle={{ backgroundColor: '#DBDED5'}}
         >
             <Tab.Screen 
                 name="Home"
@@ -35,9 +32,9 @@ export default function HomeNav() {
                 name="Favorites"
                 component={FavoriteStack}
                 options={{
-                    tabBarLabel: 'Favorites',
+                    tabBarLabel: 'Closet',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="heart-outline" color='#222' size={26} />
+                      <MaterialCommunityIcons name="wardrobe-outline" color='#222' size={26} />
                     ),
                 }} 
             />

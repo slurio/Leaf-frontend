@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 
 function CareInstruction(props) {
-    console.log('CARE INSTRUCTIONS :', props)
     return(
         <>
             <Instructions><Fiber>{props.fiber.name} Care:</Fiber> {props.fiber.care_instructions}</Instructions>

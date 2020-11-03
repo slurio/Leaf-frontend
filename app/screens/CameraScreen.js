@@ -5,7 +5,6 @@ import { Camera } from 'expo-camera';
 
 
 function CameraScreen({navigation, route}) {
-  console.log(route)
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);

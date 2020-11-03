@@ -1,23 +1,28 @@
 import React from 'react'
 import styled from 'styled-components/native'
-import { View, Text } from 'react-native'
-// import { Entypo } from '@expo/vector-icons';
 
+import { useSelector } from 'react-redux';
+import { createStackNavigator } from "@react-navigation/stack";
 
-const Favorites = () => {
+import AllFavoritesScreen from '../screens/AllFavoritesScreen';
+import FavoriteShowScreen from '../screens/FavoriteShowScreen';
+
+const Stack = createStackNavigator();
+
+const FavoriteStack = () => {   
+    // const items = useSelector(state => state.items)
+
+    // const renderItems = () => {
+    //     return items.map(item => <Text>{item.title}</Text>)
+    // }
+
     return(
-       <StyledView>
-           <Text>Favorites!</Text>
-           {/* <Entypo name="home" size={24} color="black" /> */}
-       </StyledView>
+       <Stack.Navigator headerMode={'none'}>
+            <Stack.Screen name="AllFavoritesScreen" component={AllFavoritesScreen}/>
+            <Stack.Screen name="FavoriteShowScreen" component={FavoriteShowScreen}/>
+       </Stack.Navigator>
     )
 }
 
-export default Favorites;
+export default FavoriteStack;
 
-const StyledView = styled.View`
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-` 

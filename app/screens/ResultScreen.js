@@ -8,6 +8,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Fiber from '../components/Fiber'
 import CareInstruction from '../components/CareInstruction';
 
+import { SaveFavorite } from '../redux/action';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { HOST_WITH_PORT } from '../environment';
+
 function ResultScreen({route}) {
 
     const [favorite, setFavorite] = useState(false)
@@ -17,25 +22,57 @@ function ResultScreen({route}) {
     const fibers = route.params[0].fibers_data
     const clothingDescription = route.params[1].description
 
+    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    const SaveItem = () => {
+      // call SaveFavorite action
+      let itemObj = {
+        title: clothingDescription,
+        user_id: user.id,
+        country: route.params[0].country_data[0],
+        fibers: route.params[0].fibers_data,
+      }
+
+      let options={
+        method: "POST",
+        headers: {
+            'content-type': 'application/json',
+            'accept': 'application/json'
+        },
+        body: JSON.stringify(itemObj)
+      }
+
+      fetch(`${HOST_WITH_PORT}/items/`, options)
+      .then(resp => resp.json())
+      .then(savedItem => {
+        setFavorite(true)
+        dispatch(SaveFavorite(savedItem))
+      })
+    }
+
     const renderFibers = () => {
-      return fibers.map(fiber => <Fiber key={fiber.index} fiber={fiber.fiber} percentage={fiber.percentage}/>)
+      return fibers.map(fiber => <Fiber key={fiber.id} fiber={fiber.fiber} percentage={fiber.percentage}/>)
     }
 
     const renderCareInstruction = () => {
-      return fibers.map(fiber => <CareInstruction key={fiber.index} fiber={fiber.fiber}/>)
+      return fibers.map(fiber => <CareInstruction key={fiber.id} fiber={fiber.fiber}/>)
     }
 
     return(
         <ScrollView>
           <TopContainer>
             <Text>Your {clothingDescription}...</Text>
-            <Image
-              style={{width: 150, height: 150}}
+            {/* <Image
+              style={{width: 20, height: 20}}
+              // source={require(country_img)}
               source={{
                 uri: country_img
               }}
-            />
-            <TouchableOpacity onPress={() => setFavorite(!favorite)}>
+            /> */}
+            <TouchableOpacity onPress={() => {
+              SaveItem()
+            }}>
               {favorite ? <MaterialCommunityIcons name="heart" color='#222222' size={40} /> : <MaterialCommunityIcons name="heart-outline" color='#222222' size={40} />}
             </TouchableOpacity>
           </TopContainer>

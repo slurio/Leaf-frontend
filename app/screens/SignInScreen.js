@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components/native'
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,9 +14,11 @@ function SignInScreen({navigation}, props) {
     const dispatch = useDispatch()
 
  
-    if(user){
-        navigation.navigate('HomeNav') 
-    }
+    useEffect(() => {
+        if(user){
+            navigation.navigate('HomeNav') 
+        }
+    })
 
 
     const renderPassword = (text) => {
@@ -57,13 +59,13 @@ function SignInScreen({navigation}, props) {
             {user === false ? <Error>Username or Password Incorrect!</Error> : null}
              <StyledTextInput
                 placeholder="Username"
-                placeholderTextColor="grey"
+                placeholderTextColor="#A6BDB7"
                 value={username}
                 onChangeText={text => renderUsername(text)}
              />
               <StyledTextInput
                 placeholder="Password"
-                placeholderTextColor="grey"
+                placeholderTextColor="#A6BDB7"
                 secureTextEntry={true}
                 value={password}
                 onChangeText={text => renderPassword(text)}
@@ -96,13 +98,14 @@ const StyledContainer = styled.View`
     margin-top: 15px;
     flex: 1;
     flex-direction: row;
-    color: #222;
+    color: #3C413D;
  `
 
  const StyledText = styled.Text`
     font-size: 16px;
     margin-right: 5px;
     font-family: Raleway_300Light;
+    color: #3C413D;
  `
 
  const Link = styled.Text`
@@ -112,7 +115,7 @@ const StyledContainer = styled.View`
  `
 
 const Logo = styled.Text`
-    color: #222;
+    color: #3C413D;
     font-weight: bold;
     font-size: 60px;
     padding-bottom: 25px;
@@ -125,14 +128,14 @@ const GreetingContainer = styled.View`
 
 const SignIn = styled.Text`
 font-size: 32px;
-color: #222;
+color: #3C413D;
 padding-bottom: 10px;
 font-family: Raleway_600SemiBold;
 `
 
 const Greeting = styled.Text`
 font-size: 18px;
-color: #222;
+color: #3C413D;
 padding-bottom: 20px;
 font-family: Raleway_300Light;
 `
@@ -144,11 +147,11 @@ borderRadius: 100px;
 align-items: center;
 justify-content: center;
 margin-top: 10px;
-border: 1.5px solid black;
+background-color: #A6BDB7;
 `
 
 const StyledButtonText = styled.Text`
-    color: #222;
+    color: #fff;
     font-size: 20px;
     font-family: Raleway_300Light;
 `
@@ -157,7 +160,7 @@ const StyledButtonText = styled.Text`
 const StyledTextInput = styled.TextInput`
     width: 250px;
     height: 35px;
-    background-color: lightgrey;
+    background-color: #FFFFFF;
     margin: 10px;
     padding: 8px;
     borderRadius: 14px;
@@ -169,4 +172,5 @@ const StyledView = styled.View`
     flex: 1;
     justify-content: center;
     align-items: center;
+    background-color: #DBDED5;
 ` 

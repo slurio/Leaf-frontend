@@ -2,73 +2,76 @@ import React from 'react'
 import styled from 'styled-components/native'
 
 function OpenScreen({navigation}, props) {  
-    console.log(props)  
     return(
-        <Background
-            source={require('../assets/logo.png')}>
-             <LogoContainer> 
-                 <Logo>THE</Logo>
-                 <Logo>THREAD</Logo>
-             </LogoContainer>
-             <LogInButton onPress={()=> navigation.navigate('SignInScreen')}>
-                <StyledSignInText>SIGN IN</StyledSignInText>
-             </LogInButton>
-             <SignUpButton onPress={()=> navigation.navigate('SignupScreen')}>
-                <StyledText>REGISTER</StyledText>
-             </SignUpButton>
-         </Background>
+        <StyledView>
+            <LogoContainer>
+                <LogoImage source={require('../assets/threadlogo.png')}/> 
+                <Logo>THE THREAD</Logo>
+            </LogoContainer>
+            <LogInButton onPress={()=> navigation.navigate('SignInScreen')}>
+            <StyledSignInText>LOGIN</StyledSignInText>
+            </LogInButton>
+            <SignUpButton onPress={()=> navigation.navigate('SignupScreen')}>
+            <StyledText>SIGN UP</StyledText>
+            </SignUpButton>
+        </StyledView>
     )
 }
 
 export default OpenScreen;
 
+const LogoImage = styled.Image`
+    width: 150px;
+    height: 150px;
+`
+
 const StyledText = styled.Text`
     color: #3C413D;
     font-weight: bold;
-    font-size: 20px;
-    font-family: Raleway_600SemiBold;
+    font-size: 17px;
+    font-family: Raleway_700Bold;
 `
 
 const StyledSignInText = styled.Text`
-    color: #fff;
+    color: #3C413D;
     font-weight: bold;
-    font-size: 20px;
-    font-family: Raleway_600SemiBold;
+    font-size: 17px;
+    font-family: Raleway_700Bold;
+    letter-spacing: 2px;
 `
 
 const LogInButton = styled.TouchableOpacity`
-    width: 190px;
-    height: 55px;
-    top: -60px;
+    width: 160px;
+    height: 45px;
+    top: -180px;
     align-items: center;
     justify-content: center;
-    background-color: #3C413D;
+    background-color:#A6BDB7;
+    border-radius: 10px;
 `
 const SignUpButton = styled.TouchableOpacity`
-    width: 190px;
-    height: 55px;
-    top: -40px;
+    width: 160px;
+    height: 45px;
+    top: -160px;
     align-items: center;
     justify-content: center;
-    border: 1.5px solid #3C413D;
+    border-radius: 10px;
+    border: 2px solid #3C413D;
 `
-const Background = styled.ImageBackground`
+const StyledView = styled.ImageBackground`
   flex: 1;
   justify-content: flex-end;
   align-items: center;
   resizeMode: stretch;
+  background-color:#DBDED5;
 ` 
 
 const LogoContainer = styled.View`
-    position: absolute;
-    top: 110px;
     align-items: center;
+    top: -220px;
 `
 const Logo = styled.Text`
     color: #3C413D;
-    top: 2px;
     font-size: 50px;
-    font-weight: bold;
-    letter-spacing: 5px;
-    font-family: Raleway_600SemiBold;
+    font-weight: 500;
 `
