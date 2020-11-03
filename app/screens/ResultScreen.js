@@ -17,7 +17,7 @@ function ResultScreen({route}) {
 
     const [favorite, setFavorite] = useState(false)
     const country = route.params[0].country_data[0].country
-    const country_img = route.params[0].country_data[0].img
+    // const country_img = route.params[0].country_data[0].img
     const country_data = route.params[0].country_data[0].description
     const fibers = route.params[0].fibers_data
     const clothingDescription = route.params[1].description
@@ -59,17 +59,42 @@ function ResultScreen({route}) {
       return fibers.map(fiber => <CareInstruction key={fiber.id} fiber={fiber.fiber}/>)
     }
 
+    const renderImage = () => {switch(country){
+      case('China'):
+        return <Image 
+                style={{width: 150, height: 150}}
+                source={require('../assets/countries/China.png')}/>;
+      case('USA'):
+        return <Image 
+                style={{width: 150, height: 150}}
+                source={require('../assets/countries/USA.png')}/>;
+      case('Bangladesh'):
+        return <Image 
+                style={{width: 150, height: 150}}
+                source={require('../assets/countries/Bangladesh.png')}/>;
+      case('Germany'):
+        return <Image 
+                style={{width: 150, height: 150}}
+                source={require('../assets/countries/Germany.png')}/>;
+      case('India'):
+        return <Image 
+                style={{width: 150, height: 150}}
+                source={require('../assets/countries/India.png')}/>;
+      case('Italy'):
+        return <Image 
+                style={{width: 150, height: 150}}
+                source={require('../assets/countries/Italy.png')}/>;
+      case('Vietnam'):
+        return <Image 
+                style={{width: 150, height: 150}}
+                source={require('../assets/countries/Vietnam.png')}/>;
+    }}
+
     return(
         <ScrollView>
+            <Text style={{margin:30}}>Your {clothingDescription}...</Text>
           <TopContainer>
-            <Text>Your {clothingDescription}...</Text>
-            {/* <Image
-              style={{width: 20, height: 20}}
-              // source={require(country_img)}
-              source={{
-                uri: country_img
-              }}
-            /> */}
+                {renderImage()}
             <TouchableOpacity onPress={() => {
               SaveItem()
             }}>
@@ -94,7 +119,6 @@ function ResultScreen({route}) {
 export default ResultScreen;
 
 const TopContainer = styled.View`
-  flex: 1;
   flex-direction: row;
   margin: 30px;
   justify-content: space-between;
