@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { ScrollView, Text, Image, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Image, TouchableOpacity, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteItem } from '../redux/action';
 
 import { HOST_WITH_PORT } from '../environment';
@@ -66,16 +66,17 @@ const FavoriteShowScreen = ({navigation, route}) => {
       fetch(`${HOST_WITH_PORT}/items/${itemId}/`, options)
       .then(resp => resp.json())
       .then(item => {
-        //after delete reroute to allfavoriteScreen
-        //need to update state
         dispatch(deleteItem(item))
         navigation.push('AllFavoritesScreen')
       })
     }
 
     return(
-        <ScrollView>
-          <StyledText>Your {route.params['title']}...</StyledText>
+      <ScrollView>
+        <StyledTextBorderLine>
+          <StyledText>Your {route.params['title'].toUpperCase()}...</StyledText>
+        </StyledTextBorderLine>
+
         <TopContainer>
           {renderImage()}
           <TouchableOpacity onPress={() => {
@@ -86,24 +87,50 @@ const FavoriteShowScreen = ({navigation, route}) => {
         </TopContainer>
 
         <BottomContainer>
-          <Country>Made In {route.params['country_fact']['country']}</Country>
+          <CountryBorderLine>
+            <Country>Made in {route.params['country_fact']['country'].toUpperCase()}</Country>
             <CountryData>{route.params['country_fact']['description']}</CountryData>
+          </CountryBorderLine>
 
-          <FiberTitle>Content</FiberTitle>
+          <FiberBorderLine>
+            <FiberTitle>Fiber Content</FiberTitle>
             {renderFibers()}
+          </FiberBorderLine>
+          
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>   
             <CareTitle>Care Instructions</CareTitle>
             <TouchableOpacity onPress={() => console.log('edit')}>
               <MaterialCommunityIcons style={{marginRight:20}}name="pencil-outline" color='#222' size={35} />
             </TouchableOpacity>
           </View>
-            {renderCareInstruction()}
+          {renderCareInstruction()}
         </BottomContainer>
       </ScrollView>
     )
 }
 
 export default FavoriteShowScreen;
+
+const StyledTextBorderLine = styled.View`
+  border-bottom-width: .5px;
+  border-bottom-color: grey;
+  padding-bottom: 15px;
+  margin-bottom: 0px;
+`
+
+const FiberBorderLine = styled.View`
+  border-bottom-width: .5px;
+  border-bottom-color: grey;
+  padding-bottom: 15px;
+  margin-bottom: 22px;
+`
+
+const CountryBorderLine = styled.View`
+  border-bottom-width: .5px;
+  border-bottom-color: grey;
+  padding-bottom: 8px;
+  margin-bottom: 25px;
+`
 
 const TopContainer = styled.View`
   flex: 1;
@@ -121,27 +148,35 @@ const BottomContainer = styled.View`
 const Country = styled.Text`
   font-weight: bold;
   font-size: 30px;
+  font-family: Raleway_500Medium
 `
 
 const CountryData = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
+  font-family: Raleway_400Regular_Italic;
   font-size: 18px;
+  color: #222;
 `
 
 const FiberTitle = styled.Text`
   font-weight: bold;
   font-size: 30px;
+  font-family: Raleway_500Medium
 `
 
 const CareTitle = styled.Text`
-  font-weight: bold;
-  font-size: 30px;`
+    font-weight: bold;
+    font-size: 30px;
+    font-family: Raleway_500Medium  
+  `
 
   const StyledText = styled.Text`
     font-family: Raleway_700Bold;
-    font-size: 20px;
+    font-size: 24px;
     letter-spacing: 2px;
     margin: 30px;
+    margin-top: 25px;
     margin-bottom: 0px;
+    text-align: center;
   `

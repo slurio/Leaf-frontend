@@ -3,10 +3,8 @@ import styled from 'styled-components/native';
 import { useSelector } from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 const AllFavoritesScreen = ({navigation}) => {
     const itemData = useSelector(state => state.items.sort())
-
     const alphabetizeItems = itemData.sort(function(a,b){
         if(a.title < b.title) { return -1; }
         if(a.title > b.title) { return 1; }
@@ -29,6 +27,7 @@ const AllFavoritesScreen = ({navigation}) => {
         let filteredItems = itemData.filter( item => item.title.toLowerCase().includes(text.toLowerCase()))
         setSearchFilterItems(filteredItems)
     })
+    
     return(
        <StyledView>
            <StyledTitle>Your Closet</StyledTitle>
@@ -91,7 +90,7 @@ const StyledInput = styled.TextInput`
     padding-bottom: 10px;
     padding-left: 40px;
     border-radius: 10px;
-    width: 330px;
+    width: 315px;
     height: 40px;
     background-color: #222;
     font-size: 14px;

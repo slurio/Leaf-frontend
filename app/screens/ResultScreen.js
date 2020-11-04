@@ -16,38 +16,38 @@ import { HOST_WITH_PORT } from '../environment';
 function ResultScreen({route}) {
     const [favorite, setFavorite] = useState(false)
     const country = route.params[0].country_data[0].country
-    // const country_img = route.params[0].country_data[0].img
     const country_data = route.params[0].country_data[0].description
     const fibers = route.params[0].fibers_data
-    const clothingDescription = route.params[1].description
+    const clothingDescription = route.params[1].description ? route.params[1].description : 'Item'+ Math.floor(Math.random()*(999-100+1)+100).toString()
 
     const user = useSelector(state => state.user);
     const dispatch = useDispatch();
 
     const SaveItem = () => {
-      // call SaveFavorite action
-      let itemObj = {
-        title: clothingDescription,
-        user_id: user.id,
-        country: route.params[0].country_data[0],
-        fibers: route.params[0].fibers_data,
+      if(!favorite) {    
+        let itemObj = {
+          title: clothingDescription,
+          user_id: user.id,
+          country: route.params[0].country_data[0],
+          fibers: route.params[0].fibers_data,
+        }
+  
+        let options={
+          method: "POST",
+          headers: {
+              'content-type': 'application/json',
+              'accept': 'application/json'
+          },
+          body: JSON.stringify(itemObj)
+        }
+  
+        fetch(`${HOST_WITH_PORT}/items/`, options)
+        .then(resp => resp.json())
+        .then(savedItem => {
+          setFavorite(true)
+          dispatch(SaveFavorite(savedItem))
+        })
       }
-
-      let options={
-        method: "POST",
-        headers: {
-            'content-type': 'application/json',
-            'accept': 'application/json'
-        },
-        body: JSON.stringify(itemObj)
-      }
-
-      fetch(`${HOST_WITH_PORT}/items/`, options)
-      .then(resp => resp.json())
-      .then(savedItem => {
-        setFavorite(true)
-        dispatch(SaveFavorite(savedItem))
-      })
     }
 
     const renderFibers = () => {
@@ -88,13 +88,17 @@ function ResultScreen({route}) {
         return <Image 
                 style={{width: 150, height: 150}}
                 source={require('../assets/countries/Vietnam.png')}/>;
+      default:
+        return <Text>No Country Image found for your result</Text>
     }}
 
     return(
         <ScrollView>
-            <ItemTitle style={{margin:30}}>Your {clothingDescription}...</ItemTitle>
+          <StyledBorderLine>
+            <ItemTitle style={{margin:30}}>Your {clothingDescription.toUpperCase()}...</ItemTitle>
+          </StyledBorderLine>
           <TopContainer>
-                {renderImage()}
+            {renderImage()}
             <TouchableOpacity onPress={() => {
               SaveItem()
             }}>
@@ -103,13 +107,17 @@ function ResultScreen({route}) {
           </TopContainer>
   
           <BottomContainer>
-            <Country>Made In {country}</Country>
+            <CountryBorderLine>
+              <Country>Made In {country.toUpperCase()}</Country>
               <CountryData>{country_data}</CountryData>
+            </CountryBorderLine>
 
-            <FiberTitle>Content</FiberTitle>
+            <FiberBorderLine>
+              <FiberTitle>Fiber Content</FiberTitle>
               {renderFibers()}
+            </FiberBorderLine>
             <CareTitle>Care Instructions</CareTitle>
-              {renderCareInstruction()}
+            {renderCareInstruction()}
           </BottomContainer>
         </ScrollView>
         
@@ -118,12 +126,35 @@ function ResultScreen({route}) {
 
 export default ResultScreen;
 
+const FiberBorderLine = styled.View`
+  border-bottom-width: .5px;
+  border-bottom-color: grey;
+  padding-bottom: 15px;
+  margin-bottom: 22px;
+`
+
+const CountryBorderLine = styled.View`
+  border-bottom-width: .5px;
+  border-bottom-color: grey;
+  padding-bottom: 8px;
+  margin-bottom: 25px;
+`
+
+const StyledBorderLine = styled.View`
+  border-bottom-width: .5px;
+  border-bottom-color: grey;
+  padding-bottom: 15px;
+  margin-bottom: 0px;
+`
+
 const ItemTitle = styled.Text`
-font-family: Raleway_700Bold;
-font-size: 20px;
-letter-spacing: 2px;
-margin: 30px;
-margin-bottom: 0px;
+  font-family: Raleway_700Bold;
+  font-size: 24px;
+  letter-spacing: 2px;
+  margin: 30px;
+  margin-top: 25px;
+  margin-bottom: 0px;
+  text-align: center;
 `
 
 const TopContainer = styled.View`
@@ -146,15 +177,19 @@ const Country = styled.Text`
 const CountryData = styled.Text`
   margin-top: 10px;
   margin-bottom: 20px;
+  font-family: Raleway_400Regular_Italic;
   font-size: 18px;
+  color: #222;
 `
 
 const FiberTitle = styled.Text`
   font-weight: bold;
   font-size: 30px;
+  font-family: Raleway_500Medium
 `
 
 const CareTitle = styled.Text`
   font-weight: bold;
   font-size: 30px;
+  font-family: Raleway_500Medium 
 `

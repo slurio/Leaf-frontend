@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -35,7 +36,7 @@ export default function HomeNav() {
                     tabBarLabel: 'Closet',
                     tabBarIcon: () => (
                       <MaterialCommunityIcons name="wardrobe-outline" color='#fff' size={26} />
-                    ),
+                    )
                 }} 
             />
             <Tab.Screen
@@ -45,7 +46,7 @@ export default function HomeNav() {
                     tabBarLabel: 'Scan',
                     tabBarIcon: () => (
                       <MaterialCommunityIcons name="tag-outline" color='#fff' size={26} />
-                    ),
+                    )
                 }}  
             />
             <Tab.Screen 
@@ -55,7 +56,7 @@ export default function HomeNav() {
                     tabBarLabel: 'Profile',
                     tabBarIcon: () => (
                       <MaterialCommunityIcons name="account-outline" color='#fff' size={26} />
-                    ),
+                    )
                 }} 
             />
         </Tab.Navigator>

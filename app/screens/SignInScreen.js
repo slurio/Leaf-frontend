@@ -13,13 +13,11 @@ function SignInScreen({navigation}, props) {
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
- 
     useEffect(() => {
         if(user.username){
             navigation.navigate('HomeNav') 
         }
     })
-
 
     const renderPassword = (text) => {
         setPassword(text)
@@ -46,7 +44,8 @@ function SignInScreen({navigation}, props) {
             fetch(`${HOST_WITH_PORT}/users/`, options)
             .then(resp=> resp.json())
             .then(data => dispatch(loginUser(data)))
-        }  
+    } 
+
     return(
         <StyledView>
             <StyledContainer>
@@ -126,27 +125,27 @@ const GreetingContainer = styled.View`
 `
 
 const SignIn = styled.Text`
-font-size: 32px;
-color: #222;
-padding-bottom: 10px;
-font-family: Raleway_600SemiBold;
+    font-size: 32px;
+    color: #222;
+    padding-bottom: 10px;
+    font-family: Raleway_600SemiBold;
 `
 
 const Greeting = styled.Text`
-font-size: 18px;
-color: #222;
-padding-bottom: 20px;
-font-family: Raleway_300Light;
+    font-size: 18px;
+    color: #222;
+    padding-bottom: 20px;
+    font-family: Raleway_300Light;
 `
 
 const Container = styled.TouchableOpacity`
-width: 100px;
-height: 100px;
-borderRadius: 100px;
-align-items: center;
-justify-content: center;
-margin-top: 10px;
-border: 2px solid black;
+    width: 100px;
+    height: 100px;
+    borderRadius: 100px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    border: 2px solid black;
 `
 
 const StyledButtonText = styled.Text`

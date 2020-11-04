@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components/native'
 
-function OpenScreen({navigation}, props) {  
+function OpenScreen({ navigation }) {  
     return(
         <StyledView>
             <LogoContainer>
@@ -9,10 +9,10 @@ function OpenScreen({navigation}, props) {
                 <Logo>THE THREAD</Logo>
             </LogoContainer>
             <LogInButton onPress={()=> navigation.navigate('SignInScreen')}>
-            <StyledSignInText>LOGIN</StyledSignInText>
+                <StyledSignInText>LOGIN</StyledSignInText>
             </LogInButton>
             <SignUpButton onPress={()=> navigation.navigate('SignupScreen')}>
-            <StyledText>SIGN UP</StyledText>
+                <StyledText>SIGN UP</StyledText>
             </SignUpButton>
         </StyledView>
     )

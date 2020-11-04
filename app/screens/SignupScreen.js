@@ -5,9 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../redux/action'
 
 import { HOST_WITH_PORT } from '../environment';
-import { useScreens } from 'react-native-screens';
 
-function SignInScreen({navigation}, props) {
+function SignInScreen({ navigation }) {
    const [username,setUsername] = useState('')
    const [password,setPassword] = useState('')
    const [passwordConfirmation, setPasswordConfirmation] = useState('')
@@ -15,13 +14,11 @@ function SignInScreen({navigation}, props) {
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
- 
     useEffect(() => {
         if(user.username){
             navigation.navigate('HomeNav') 
         }
     })
-
 
     const renderPassword = (text) => {
         setPassword(text)
@@ -41,58 +38,59 @@ function SignInScreen({navigation}, props) {
             password: password,
             passwordConfirm: passwordConfirmation,
         }
+
         let options={
-                method: "POST",
-                headers: {
-                    'content-type': 'application/json',
-                    'accept': 'application/json'
-                },
-                body: JSON.stringify(userObj)
-            }
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify(userObj)
+        }
     
-            fetch(`${HOST_WITH_PORT}/users/`, options)
-            .then(resp=> resp.json())
-            .then(data => dispatch(loginUser(data)))
-        }    
+        fetch(`${HOST_WITH_PORT}/users/`, options)
+        .then(resp=> resp.json())
+        .then(data => dispatch(loginUser(data)))
+    }
+
     return(
         <StyledView>
             <StyledContainer>
-
-            <Logo>The Thread</Logo>
-            <GreetingContainer>
-                <SignIn>Sign Up</SignIn>
-                <Greeting>We are excited for you to join!</Greeting>
-            </GreetingContainer>
-            {user.username === false ? <Error>Username exists or Passwords do not match!</Error> : null}
-             <StyledTextInput
-                placeholder="Username"
-                placeholderTextColor="grey"
-                value={username}
-                onChangeText={text => renderUsername(text)}
-             />
-              <StyledTextInput
-                placeholder="Password"
-                placeholderTextColor="grey"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={text => renderPassword(text)}
-             />
-             <StyledTextInput
-                placeholder="Password Confirmation"
-                placeholderTextColor="grey"
-                secureTextEntry={true}
-                value={passwordConfirmation}
-                onChangeText={text => renderPasswordConfirmation(text)}
-             />
-             <Container onPress={()=> submitHandler()}>
-                 <StyledButtonText>SIGN UP</StyledButtonText>
-            </Container>
-            <SignUpContainer>
-                <StyledText>Have an account?</StyledText>
-                <Link onPress={()=> navigation.navigate('SignInScreen')}>Sign In</Link>
-            </SignUpContainer>
+                <Logo>The Thread</Logo>
+                <GreetingContainer>
+                    <SignIn>Sign Up</SignIn>
+                    <Greeting>We are excited for you to join!</Greeting>
+                </GreetingContainer>
+                {user.username === false ? <Error>Username exists or Passwords do not match!</Error> : null}
+                <StyledTextInput
+                    placeholder="Username"
+                    placeholderTextColor="grey"
+                    value={username}
+                    onChangeText={text => renderUsername(text)}
+                />
+                <StyledTextInput
+                    placeholder="Password"
+                    placeholderTextColor="grey"
+                    secureTextEntry={true}
+                    value={password}
+                    onChangeText={text => renderPassword(text)}
+                />
+                <StyledTextInput
+                    placeholder="Password Confirmation"
+                    placeholderTextColor="grey"
+                    secureTextEntry={true}
+                    value={passwordConfirmation}
+                    onChangeText={text => renderPasswordConfirmation(text)}
+                />
+                <Container onPress={()=> submitHandler()}>
+                    <StyledButtonText>SIGN UP</StyledButtonText>
+                </Container>
+                <SignUpContainer>
+                    <StyledText>Have an account?</StyledText>
+                    <Link onPress={()=> navigation.navigate('SignInScreen')}>Sign In</Link>
+                </SignUpContainer>
             </StyledContainer>
-         </StyledView>
+        </StyledView>
     )
 }
 
@@ -140,27 +138,27 @@ const GreetingContainer = styled.View`
 `
 
 const SignIn = styled.Text`
-font-size: 32px;
-color: #222;
-padding-bottom: 10px;
-font-family: Raleway_600SemiBold;
+    font-size: 32px;
+    color: #222;
+    padding-bottom: 10px;
+    font-family: Raleway_600SemiBold;
 `
 
 const Greeting = styled.Text`
-font-size: 18px;
-color: #222;
-padding-bottom: 20px;
-font-family: Raleway_300Light;
+    font-size: 18px;
+    color: #222;
+    padding-bottom: 20px;
+    font-family: Raleway_300Light;
 `
 
 const Container = styled.TouchableOpacity`
-width: 100px;
-height: 100px;
-borderRadius: 100px;
-align-items: center;
-justify-content: center;
-margin-top: 10px;
-border: 1.5px solid black;
+    width: 100px;
+    height: 100px;
+    borderRadius: 100px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    border: 1.5px solid black;
 `
 
 const StyledButtonText = styled.Text`

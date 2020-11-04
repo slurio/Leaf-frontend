@@ -24,14 +24,15 @@ const Home = () => {
         fact = facts[Math.floor(Math.random() * facts.length)]['fact']
         setRandomFact(fact)
     }
+
     return(
         <ScrollView style={{backgroundColor:'#fff'}}>
-        <StyledView>
-            <GreetingContainer>
-                <Greeting>Welcome {username}!</Greeting>
-            </GreetingContainer>        
-            <StyledText>DID YOU KNOW...</StyledText>
-            <Fact>{randomFact}</Fact>
+            <StyledView>
+                <GreetingContainer>
+                    <Greeting>Welcome {username}!</Greeting>
+                </GreetingContainer>
+                <StyledText>DID YOU KNOW...</StyledText>
+                <Fact>{randomFact}</Fact>
                 <ButtonContainer>
                     <Button onPress={() => renderNewFact()}>
                         <ButtonText>Want to Know more?</ButtonText>
@@ -40,15 +41,14 @@ const Home = () => {
                 <DesignerContainer>
                     <DesignerText>DESIGNER Of The Day</DesignerText>
                     <Image style={{width: 300, height:400, marginTop:20}} source={require('../assets/Nanushka.png')}/>
-                    <DesignerName>NANUSHKA</DesignerName>
-                    
+                    <DesignerName>NANUSHKA</DesignerName>              
                     <View style={{marginBottom:40}}>        
-                    <DesignerBlurb>​Sandra Sandor is the mind behind Nanushka, a label that finds its origins in Budapest, Hungary. Starting from vegan leather and upcycled materials, she creates, bags, dresses, and shirts for both men and women. Her unique and simple style reveals her love of nature, and it is taking the fashion world by storm.​</DesignerBlurb>
-                    <DesignerBlurb>Nanushka has implemented several sustainability initiatives that focus both on protecting the planet and creating a better working environment for its workers.</DesignerBlurb>
-                    <DesignerBlurb>85% of the production still occurs in Hungary since this significantly contributes to cutting back its carbon footprint and allows for a transparent supply chain. Moreover, Sandra Sandor is sponsoring a Giving Back program to support non-profit organizations that promote this development in less fortunate areas of the world.</DesignerBlurb>
+                        <DesignerBlurb>​Sandra Sandor is the mind behind Nanushka, a label that finds its origins in Budapest, Hungary. Starting from vegan leather and upcycled materials, she creates, bags, dresses, and shirts for both men and women. Her unique and simple style reveals her love of nature, and it is taking the fashion world by storm.​</DesignerBlurb>
+                        <DesignerBlurb>Nanushka has implemented several sustainability initiatives that focus both on protecting the planet and creating a better working environment for its workers.</DesignerBlurb>
+                        <DesignerBlurb>85% of the production still occurs in Hungary since this significantly contributes to cutting back its carbon footprint and allows for a transparent supply chain. Moreover, Sandra Sandor is sponsoring a Giving Back program to support non-profit organizations that promote this development in less fortunate areas of the world.</DesignerBlurb>
                     </View>
                 </DesignerContainer>
-         </StyledView>
+            </StyledView>
         </ScrollView>
     )
 }

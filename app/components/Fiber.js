@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, Button, Image, View} from 'react-native';
+import { View } from 'react-native';
 import styled from 'styled-components';
 
 
 function Fiber(props) {
     return(
         <View>
-        <FiberName>{props.percentage} {props.fiber.name}</FiberName>
-        <FiberDescription>{props.fiber.description}</FiberDescription>
+            <FiberName>{props.percentage} {props.fiber.name.toUpperCase()}</FiberName>
+            <FiberDescription>{props.fiber.description}</FiberDescription>
         </View>
     )
 }
@@ -16,12 +16,12 @@ export default Fiber;
 
 const FiberName = styled.Text`
     font-size: 20px;
-    font-weight: bold;
-    margin-top: 5px;
-    margin-bottom: 2px;
+    font-family: Raleway_600SemiBold;
+    margin-top: 10px;
 `
 
 const FiberDescription = styled.Text`
     font-size: 18px;
     margin-bottom: 10px;
+    font-family: Raleway_400Regular_Italic;
 `
