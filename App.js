@@ -27,7 +27,7 @@ import OpenScreen from "./app/screens/OpenScreen";
 import SignupScreen from "./app/screens/SignupScreen";
 import SignInScreen from "./app/screens/SignInScreen";
 
-import {createStore, applyMiddleware} from 'redux'; 
+import {createStore} from 'redux'; 
 import { Provider } from 'react-redux';
 
 
@@ -70,7 +70,7 @@ export default function App() {
 
       return (
         <Provider store={store}>
-          <View style={{ flex: 1, backgroundColor:'#DBDED5'}}>
+          <View style={{ flex: 1, backgroundColor:'#fff'}}>
              <NavigationContainer>
               <Stack.Navigator headerMode={'float'}>
                 <Stack.Screen 
@@ -80,15 +80,14 @@ export default function App() {
                 />
                 <Stack.Screen name="HomeNav" component={HomeNav} 
                  options={{
-                  title: 'The Thread',
+                  title: 'THE THREAD',
                   headerLeft: null,
                   headerStyle: {
-                    backgroundColor: '#DBDED5',
-                    height: 60,
+                    backgroundColor: '#222',
+                    height: (Platform.OS === 'ios') ? 70 : 0,
                   },
-                  headerTintColor: '#222',
+                  headerTintColor: '#fff',
                   headerTitleStyle: {
-                    fontFamily: 'Raleway_700Bold',
                     fontSize: 25,
                     letterSpacing: 2,
                   },

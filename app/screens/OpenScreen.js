@@ -5,7 +5,7 @@ function OpenScreen({navigation}, props) {
     return(
         <StyledView>
             <LogoContainer>
-                <LogoImage source={require('../assets/threadlogo.png')}/> 
+                <LogoImage source={require('../assets/whitethreadlogo.png')}/> 
                 <Logo>THE THREAD</Logo>
             </LogoContainer>
             <LogInButton onPress={()=> navigation.navigate('SignInScreen')}>
@@ -26,14 +26,14 @@ const LogoImage = styled.Image`
 `
 
 const StyledText = styled.Text`
-    color: #3C413D;
+    color: #fff;
     font-weight: bold;
     font-size: 17px;
     font-family: Raleway_700Bold;
 `
 
 const StyledSignInText = styled.Text`
-    color: #3C413D;
+    color: #222;
     font-weight: bold;
     font-size: 17px;
     font-family: Raleway_700Bold;
@@ -46,7 +46,7 @@ const LogInButton = styled.TouchableOpacity`
     top: -180px;
     align-items: center;
     justify-content: center;
-    background-color:#A6BDB7;
+    background-color:#fff;
     border-radius: 10px;
 `
 const SignUpButton = styled.TouchableOpacity`
@@ -56,14 +56,14 @@ const SignUpButton = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    border: 2px solid #3C413D;
+    border: 2px solid #fff;
 `
 const StyledView = styled.ImageBackground`
   flex: 1;
   justify-content: flex-end;
   align-items: center;
   resizeMode: stretch;
-  background-color:#DBDED5;
+  background-color: #222;
 ` 
 
 const LogoContainer = styled.View`
@@ -71,7 +71,7 @@ const LogoContainer = styled.View`
     top: -220px;
 `
 const Logo = styled.Text`
-    color: #3C413D;
+    color: #fff;
     font-size: 50px;
     font-weight: 500;
 `

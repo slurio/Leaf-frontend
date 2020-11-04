@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/native'
-import { Text, Alert, View} from 'react-native';
+import { Alert } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { HOST_WITH_PORT, API_KEY } from '../environment';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import * as SplashScreen from 'expo-splash-screen';
 
 function ScanScreen({navigation, route}) {
 
@@ -13,12 +14,14 @@ function ScanScreen({navigation, route}) {
     const[frontImg, setFrontImg] = useState('')
     const [clothingDescription, setClothingDescription] = useState('')
 
+    const [appReady, setAppReady] = useState(true)
+
     useEffect(() => {
       setFrontImg(route.params)
     },[])
 
     const handleSubmit = () => {
-
+        setAppReady(false)
         fetch("https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY, {
             method: 'POST',
             body: JSON.stringify({
@@ -63,60 +66,93 @@ function ScanScreen({navigation, route}) {
        
     return(
       <ScrollView style={{backgroundColor:'white'}}>
+        { appReady ?
         <ViewContatiner style={{backgroundColor:'white'}}>
        
              <Title>Upload Tag Images</Title>
              <Instructions onPress={()=> navigation.push('InstructionScreen')}>Instructions</Instructions>
        
 
+              <BottomBorderLine>
+                <StyledTextInput
+                    placeholder="ITEM DESCRIPTION HERE"
+                    placeholderTextColor="grey"
+                    value={clothingDescription}
+                    onChangeText={text => setClothingDescription(text)}
+                />
+              </BottomBorderLine>
               <ImageView>
-              <StyledTextInput
-                  placeholder="Clothing Description"
-                  placeholderTextColor="grey"
-                  value={clothingDescription}
-                  onChangeText={text => setClothingDescription(text)}
-              />
-              <StyledFrontLabel>Front Tag Image</StyledFrontLabel>
+              <StyledFrontLabel>FRONT TAG IMAGE</StyledFrontLabel>
               { frontImg ? 
                 <FrontImg 
-                style={{width: 300, height: 200}}
+                style={{width: 270, height: 160}}
                 source={{uri: `data:image/png;base64,${frontImg.frontTag.base64}`}}/>
                 :<ImageContainer onPress={()=> navigation.navigate('CameraScreen')}>
-                  <MaterialCommunityIcons style={{top: 40, marginLeft: 90}} name="camera" color='grey' size={130} />
+                  <MaterialCommunityIcons style={{top: 30, marginLeft: 80}} name="camera" color='#3f3f3f' size={110} />
                 </ImageContainer>
               }
            
-              <StyledFrontLabel>Back Tag Image</StyledFrontLabel>
+              <StyledFrontLabel>BACK TAG IMAGE</StyledFrontLabel>
                 <ImageContainer onPress={()=> 
                   Alert.alert("Sorry!","This feature is coming soon", [
                     {text: "Ok", onPress: () => null}
                   ]) 
                 }>
-                  <MaterialCommunityIcons style={{top: 40, marginLeft: 90}} name="camera" color='grey' size={130} />
+                  <MaterialCommunityIcons style={{top: 30, marginLeft: 80}} name="camera" color='#3f3f3f' size={110} />
                 </ImageContainer>
                 <SubmitButton onPress={()=> handleSubmit()}>
-                    <StyledText>SUBMIT</StyledText>
+                    <StyledText>Submit</StyledText>
                 </SubmitButton>
               </ImageView>
         
-        </ViewContatiner>
-      </ScrollView>
-        
+        </ViewContatiner> 
+        :<LogoContainer>
+              <LogoImage source={require('../assets/threadlogo.png')}/> 
+              <Logo>threading your results...</Logo>
+          </LogoContainer>
+        }
+      </ScrollView>        
     )
 }
 
 export default ScanScreen;
 
+const BottomBorderLine = styled.View`
+  border-bottom-width: .5px;
+  border-bottom-color: grey;
+  justify-content: center;
+  align-items: center;
+`
+
+const LogoImage = styled.Image`
+    width: 100px;
+    height: 100px;
+`
+
+const LogoContainer = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    top: 200px;
+`
+const Logo = styled.Text`
+  margin-top: 25px;
+  color: #3C413D;
+  font-size: 20px;
+  font-weight: 300;
+`
+
 const StyledTextInput = styled.TextInput`
     width: 300px;
     height: 35px;
-    background-color: lightgrey;
-    margin: 10px;
-    margin-top: 15px;
-    padding: 8px;
+    background-color: #ECECEC;
+    margin-top: 28px;
+    margin-bottom: 18px;
+    padding-left: 20px;
     borderRadius: 10px;
-    font-size: 18px;
-    font-family: Raleway_300Light;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-family: Raleway_500Medium;
 `
 
 const ViewContatiner = styled.View`
@@ -138,38 +174,40 @@ const ImageView = styled.View`
 `
 
 const StyledFrontLabel = styled.Text`
-  font-size: 16px;
-  font-family: Raleway_400Regular;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  font-size: 14px;
+  font-family: Raleway_600SemiBold;
+  margin-bottom: 5px;
+  margin-top: 12px;
 `
 
 const StyledText = styled.Text`
-    color: black;
-    font-family: Raleway_600SemiBold;
-    font-size: 20px;
+    color: #fff;
+    font-family: Raleway_700Bold;
+    font-size: 18px;
+    letter-spacing: 3px;
 `
 
 const SubmitButton = styled.TouchableOpacity`
-    background-color: transparent;
+    background-color: #222;
     width: 300px;
     height: 50px;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 14px;
     border: 2px solid black;
 `
 
 const ImageContainer = styled.TouchableOpacity`
 
-  background-color: lightgrey;
-  width: 300px;
-  height: 200px;
+  background-color: #ECECEC;
+  width: 270px;
+  height: 160px;
 `
 
 const Title = styled.Text`
-  font-size: 28px;
-  font-family: Raleway_500Medium;
+  font-family: Raleway_600SemiBold;
+    font-size: 28px;
+    color: #3C413D;
 `
 
 const Instructions = styled.Text`

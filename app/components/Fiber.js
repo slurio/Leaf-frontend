@@ -6,8 +6,7 @@ import styled from 'styled-components';
 function Fiber(props) {
     return(
         <View>
-        {/* <FiberName>{props.percentage} {props.fiber.name}</FiberName> */}
-        <FiberName>{props.fiber.name}</FiberName>
+        <FiberName>{props.percentage} {props.fiber.name}</FiberName>
         <FiberDescription>{props.fiber.description}</FiberDescription>
         </View>
     )

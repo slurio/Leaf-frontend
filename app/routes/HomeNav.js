@@ -13,10 +13,10 @@ export default function HomeNav() {
     return(
         <Tab.Navigator
             initialRouteName="Home"
-            activeColor="#222"
-            inactiveColor="#222"
+            activeColor="#fff"
+            inactiveColor="#fff"
             labelStyle={{ fontSize: 12 }}
-            barStyle={{ backgroundColor: '#DBDED5'}}
+            barStyle={{ backgroundColor: '#222'}}
         >
             <Tab.Screen 
                 name="Home"
@@ -24,7 +24,7 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="home-outline" color='#222' size={26} />
+                      <MaterialCommunityIcons name="home-outline" color='#fff' size={26} />
                     )
                 }}
             />
@@ -34,7 +34,7 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Closet',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="wardrobe-outline" color='#222' size={26} />
+                      <MaterialCommunityIcons name="wardrobe-outline" color='#fff' size={26} />
                     ),
                 }} 
             />
@@ -44,7 +44,7 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Scan',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="tag-outline" color='#222' size={26} />
+                      <MaterialCommunityIcons name="tag-outline" color='#fff' size={26} />
                     ),
                 }}  
             />
@@ -54,7 +54,7 @@ export default function HomeNav() {
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: () => (
-                      <MaterialCommunityIcons name="account-outline" color='#222' size={26} />
+                      <MaterialCommunityIcons name="account-outline" color='#fff' size={26} />
                     ),
                 }} 
             />

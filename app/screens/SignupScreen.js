@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components/native'
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,9 +16,11 @@ function SignInScreen({navigation}, props) {
     const dispatch = useDispatch()
 
  
-    if(user){
-        navigation.navigate('HomeNav') 
-    }
+    useEffect(() => {
+        if(user.username){
+            navigation.navigate('HomeNav') 
+        }
+    })
 
 
     const renderPassword = (text) => {
@@ -37,6 +39,7 @@ function SignInScreen({navigation}, props) {
         let userObj = {
             username: username,
             password: password,
+            passwordConfirm: passwordConfirmation,
         }
         let options={
                 method: "POST",
@@ -60,7 +63,7 @@ function SignInScreen({navigation}, props) {
                 <SignIn>Sign Up</SignIn>
                 <Greeting>We are excited for you to join!</Greeting>
             </GreetingContainer>
-            {user === false ? <Error>Username exists or Passwords do not match!</Error> : null}
+            {user.username === false ? <Error>Username exists or Passwords do not match!</Error> : null}
              <StyledTextInput
                 placeholder="Username"
                 placeholderTextColor="grey"

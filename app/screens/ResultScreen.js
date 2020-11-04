@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HOST_WITH_PORT } from '../environment';
 
 function ResultScreen({route}) {
-
+  console.log(route.params)
     const [favorite, setFavorite] = useState(false)
     const country = route.params[0].country_data[0].country
     // const country_img = route.params[0].country_data[0].img
@@ -52,11 +52,11 @@ function ResultScreen({route}) {
     }
 
     const renderFibers = () => {
-      return fibers.map(fiber => <Fiber key={fiber.id} fiber={fiber.fiber} percentage={fiber.percentage}/>)
+      return fibers.map(fiber => <Fiber key={fiber.fiber.id} fiber={fiber.fiber} percentage={fiber.percentage}/>)
     }
 
     const renderCareInstruction = () => {
-      return fibers.map(fiber => <CareInstruction key={fiber.id} fiber={fiber.fiber}/>)
+      return fibers.map(fiber => <CareInstruction key={fiber.fiber.id} fiber={fiber.fiber}/>)
     }
 
     const renderImage = () => {switch(country){
@@ -92,7 +92,7 @@ function ResultScreen({route}) {
 
     return(
         <ScrollView>
-            <Text style={{margin:30}}>Your {clothingDescription}...</Text>
+            <ItemTitle style={{margin:30}}>Your {clothingDescription}...</ItemTitle>
           <TopContainer>
                 {renderImage()}
             <TouchableOpacity onPress={() => {
@@ -117,6 +117,14 @@ function ResultScreen({route}) {
 }
 
 export default ResultScreen;
+
+const ItemTitle = styled.Text`
+font-family: Raleway_700Bold;
+font-size: 20px;
+letter-spacing: 2px;
+margin: 30px;
+margin-bottom: 0px;
+`
 
 const TopContainer = styled.View`
   flex-direction: row;

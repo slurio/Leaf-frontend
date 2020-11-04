@@ -13,7 +13,7 @@ const AllFavoritesScreen = ({navigation}) => {
     const renderItem = ({item}) => {
         return(
             <StyledTouchableOpacity onPress={() => navigation.push('FavoriteShowScreen', item)}>
-                <StyledText>{item.title}</StyledText>
+                <StyledText>{item.title.toUpperCase()}</StyledText>
             </StyledTouchableOpacity>
         )
     }
@@ -30,8 +30,8 @@ const AllFavoritesScreen = ({navigation}) => {
            <SearchBar>
                 <MaterialCommunityIcons style={{position: 'absolute', alignItems: 'center', top: 10, zIndex:1, top:5, marginLeft:5}} name="magnify" color='#fff' size={26} />
                 <StyledInput
-                        placeholder="Clothing Description"
-                        placeholderTextColor="white"
+                        placeholder="Search By Item Description"
+                        placeholderTextColor="#fff"
                         value={searchTerm}
                         onChangeText={text => renderFilter(text)}
                 />
@@ -51,7 +51,6 @@ const SearchBar = styled.View`
     margin-top: 15px;
     flex: 1;
     flex-direction: row;
-    color: #3C413D;
 `
 const StyledTouchableOpacity = styled.TouchableOpacity`
     border-bottom-width: .5px;
@@ -59,10 +58,12 @@ const StyledTouchableOpacity = styled.TouchableOpacity`
 `
 
 const StyledText = styled.Text`
-    font-family: Raleway_400Regular;
+    font-family: Raleway_500Medium;
     font-size: 16px;
     margin-top: 12px;
+    letter-spacing: 2px;
     margin-bottom: 12px;
+    color: #222;
 `
 
 const StyledView = styled.View`
@@ -70,12 +71,14 @@ const StyledView = styled.View`
 ` 
 
 const StyledTitle = styled.Text`
-    font-size: 22px;
-    font-family: Raleway_300Light;
+    font-size: 28px;
+    font-family: Raleway_700Bold;
+    color: #222;
+    padding-bottom: 10px;
 `
 
 const StyledFlatList = styled.FlatList`
-    margin-top: 50px;
+    margin-top: 55px;
 `
 
 const StyledInput = styled.TextInput`
@@ -83,9 +86,11 @@ const StyledInput = styled.TextInput`
     padding-bottom: 10px;
     padding-left: 40px;
     border-radius: 10px;
-    width: 300px;
-    height: 35px;
-    background-color: lightgrey;
-    font-size: 18px;
-    font-family: Raleway_300Light;
+    width: 330px;
+    height: 40px;
+    background-color: #222;
+    font-size: 14px;
+    letter-spacing: 2px;
+    font-family: Raleway_500Medium;
+    color: #fff;
 `

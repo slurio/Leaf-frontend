@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { Text, Component } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 
 import { PieChart } from 'react-native-svg-charts'
 import { VictoryPie } from "victory-native";
@@ -22,7 +22,7 @@ const Profile = (props) => {
             }))
 
     return(
-       <StyledView>
+       <ScrollView>
            <Text>Your Profile!</Text>
 
            <PieChart style={{ height: 200 }} data={pieData} />
@@ -38,7 +38,7 @@ const Profile = (props) => {
             style={{labels:{fontSize: 10}}}
         />
 
-       </StyledView>
+       </ScrollView>
     )
 }
 
