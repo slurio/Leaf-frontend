@@ -5,7 +5,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 const AllFavoritesScreen = ({navigation}) => {
-    const itemData = useSelector(state => state.items)
+    const itemData = useSelector(state => state.items.sort())
+
+    const alphabetizeItems = itemData.sort(function(a,b){
+        if(a.title < b.title) { return -1; }
+        if(a.title > b.title) { return 1; }
+        return 0;
+    })
 
     const [searchFilterItems, setSearchFilterItems] = useState('')
     const [searchTerm, setSearchTerm] = useState('')
@@ -23,7 +29,6 @@ const AllFavoritesScreen = ({navigation}) => {
         let filteredItems = itemData.filter( item => item.title.toLowerCase().includes(text.toLowerCase()))
         setSearchFilterItems(filteredItems)
     })
-
     return(
        <StyledView>
            <StyledTitle>Your Closet</StyledTitle>
@@ -37,7 +42,7 @@ const AllFavoritesScreen = ({navigation}) => {
                 />
            </SearchBar>
            <StyledFlatList
-            data={searchFilterItems !== "" || searchFilterItems.length >= 1 ? searchFilterItems : itemData}
+            data={searchFilterItems !== "" || searchFilterItems.length >= 1 ? searchFilterItems : alphabetizeItems}
             renderItem={renderItem}
             keyExtractor={item => item.id.toString()}
             />

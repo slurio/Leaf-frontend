@@ -17,9 +17,12 @@ const FavoriteStack = () => {
     // }
 
     return(
-       <Stack.Navigator headerMode={'none'}>
+       <Stack.Navigator>
             <Stack.Screen name="AllFavoritesScreen" component={AllFavoritesScreen}/>
-            <Stack.Screen name="FavoriteShowScreen" component={FavoriteShowScreen}/>
+            <Stack.Screen 
+                name="FavoriteShowScreen" 
+                component={FavoriteShowScreen}
+            />
        </Stack.Navigator>
     )
 }

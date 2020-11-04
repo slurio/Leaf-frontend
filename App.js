@@ -29,6 +29,7 @@ import SignInScreen from "./app/screens/SignInScreen";
 
 import {createStore} from 'redux'; 
 import { Provider } from 'react-redux';
+import { deleteItem } from "./app/redux/action";
 
 
 const rootReducer = (currentState= {user:'', items: []}, action) => {
@@ -36,6 +37,13 @@ const rootReducer = (currentState= {user:'', items: []}, action) => {
     return {...currentState, user: action.payload, items: action.payload.items}
   } else if(action.type === "favorite item"){
     return {...currentState, items: [action.payload, ...currentState.items]}
+  } else if(action.type === "delete item"){
+    // let items = [...currentState.items]
+    // let deletedItem = currentState.items.find(action.payload)
+    // console.log(deleteItem)
+    // let index = currentState.items.indexOf(deletedItem)
+    // items.splice(index, 1)
+    return {...currentState, items: action.payload}
   }else {
     return currentState
   }
@@ -78,8 +86,8 @@ export default function App() {
                   component={OpenScreen}
                   options={{headerShown: false}}
                 />
-                <Stack.Screen name="HomeNav" component={HomeNav} 
-                 options={{
+                <Stack.Screen name="HomeNav" component={HomeNav}
+                  options={{
                   title: 'THE THREAD',
                   headerLeft: null,
                   headerStyle: {

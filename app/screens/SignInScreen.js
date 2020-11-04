@@ -47,7 +47,6 @@ function SignInScreen({navigation}, props) {
             .then(resp=> resp.json())
             .then(data => dispatch(loginUser(data)))
         }  
-        console.log('user :', user)  
     return(
         <StyledView>
             <StyledContainer>

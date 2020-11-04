@@ -14,7 +14,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HOST_WITH_PORT } from '../environment';
 
 function ResultScreen({route}) {
-  console.log(route.params)
     const [favorite, setFavorite] = useState(false)
     const country = route.params[0].country_data[0].country
     // const country_img = route.params[0].country_data[0].img
@@ -59,14 +58,15 @@ function ResultScreen({route}) {
       return fibers.map(fiber => <CareInstruction key={fiber.fiber.id} fiber={fiber.fiber}/>)
     }
 
-    const renderImage = () => {switch(country){
+    const renderImage = () => {
+      switch(country){
       case('China'):
         return <Image 
-                style={{width: 150, height: 150}}
+                style={{width: 210, height: 150}}
                 source={require('../assets/countries/China.png')}/>;
       case('USA'):
         return <Image 
-                style={{width: 150, height: 150}}
+                style={{width: 250, height: 150}}
                 source={require('../assets/countries/USA.png')}/>;
       case('Bangladesh'):
         return <Image 

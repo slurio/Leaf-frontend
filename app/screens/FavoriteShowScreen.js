@@ -3,10 +3,17 @@ import styled from 'styled-components/native';
 import { ScrollView, Text, Image, TouchableOpacity, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteItem } from '../redux/action';
+
+import { HOST_WITH_PORT } from '../environment';
+
 import Fiber from '../components/Fiber'
 import CareInstruction from '../components/CareInstruction';
 
-const FavoriteShowScreen = ({route}) => {
+const FavoriteShowScreen = ({navigation, route}) => {
+  const dispatch = useDispatch();
+
     const renderFibers = () => {
         return route.params['item_fiber_facts'].map(fiber => <Fiber key={fiber.id} fiber={fiber['fiber_fact']} percentage={fiber['percentage']}/>)
     }
@@ -47,13 +54,32 @@ const FavoriteShowScreen = ({route}) => {
                 source={require('../assets/countries/Vietnam.png')}/>;
     }}
 
+    const removeItem = () => {
+      console.log('delete', route.params.id)
+
+      let itemId = route.params.id
+
+      let options = {
+        method: 'DELETE'
+      }
+
+      fetch(`${HOST_WITH_PORT}/items/${itemId}/`, options)
+      .then(resp => resp.json())
+      .then(item => {
+        //after delete reroute to allfavoriteScreen
+        //need to update state
+        dispatch(deleteItem(item))
+        navigation.push('AllFavoritesScreen')
+      })
+    }
+
     return(
         <ScrollView>
           <StyledText>Your {route.params['title']}...</StyledText>
         <TopContainer>
           {renderImage()}
           <TouchableOpacity onPress={() => {
-            console.log('delete')
+            removeItem()
           }}>
             <MaterialCommunityIcons name="recycle" color='#222' size={35} />
           </TouchableOpacity>
