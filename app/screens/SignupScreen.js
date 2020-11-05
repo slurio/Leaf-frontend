@@ -2,23 +2,28 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components/native'
 
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser } from '../redux/action'
+import { signUpUser } from '../redux/action'
 
 import { HOST_WITH_PORT } from '../environment';
 
 function SignInScreen({ navigation }) {
    const [username,setUsername] = useState('')
+   const [name,setName] = useState('')
    const [password,setPassword] = useState('')
    const [passwordConfirmation, setPasswordConfirmation] = useState('')
 
-    const user = useSelector(state => state.user)
+    const newUser = useSelector(state => state.newUser)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(user.username){
+        if(newUser){
             navigation.navigate('HomeNav') 
         }
     })
+
+    const renderName = (text) => {
+        setName(text)
+    }
 
     const renderPassword = (text) => {
         setPassword(text)
@@ -35,6 +40,7 @@ function SignInScreen({ navigation }) {
     const submitHandler = () => {
         let userObj = {
             username: username,
+            name: name,
             password: password,
             passwordConfirm: passwordConfirmation,
         }
@@ -50,7 +56,7 @@ function SignInScreen({ navigation }) {
     
         fetch(`${HOST_WITH_PORT}/users/`, options)
         .then(resp=> resp.json())
-        .then(data => dispatch(loginUser(data)))
+        .then(data => dispatch(signUpUser(data)))
     }
 
     return(
@@ -61,12 +67,18 @@ function SignInScreen({ navigation }) {
                     <SignIn>Sign Up</SignIn>
                     <Greeting>We are excited for you to join!</Greeting>
                 </GreetingContainer>
-                {user.username === false ? <Error>Username exists or Passwords do not match!</Error> : null}
+                {newUser === false ? <Error>Email exists or Passwords do not match!</Error> : null}
                 <StyledTextInput
-                    placeholder="Username"
+                    placeholder="Email Address"
                     placeholderTextColor="grey"
                     value={username}
                     onChangeText={text => renderUsername(text)}
+                />
+                <StyledTextInput
+                    placeholder="Your Name"
+                    placeholderTextColor="grey"
+                    value={name}
+                    onChangeText={text => renderName(text)}
                 />
                 <StyledTextInput
                     placeholder="Password"

@@ -35,14 +35,13 @@ import { deleteItem } from "./app/redux/action";
 const rootReducer = (currentState= {user:'', items: []}, action) => {
   if(action.type === "login user"){
     return {...currentState, user: action.payload, items: action.payload.items}
-  } else if(action.type === "favorite item"){
+  } else if(action.type === "signup user"){
+    return {...currentState, newUser: action.payload}
+  }else if(action.type === "logout user"){
+    return {...currentState, newUser: '', user: ''}
+  }else if(action.type === "favorite item"){
     return {...currentState, items: [action.payload, ...currentState.items]}
   } else if(action.type === "delete item"){
-    // let items = [...currentState.items]
-    // let deletedItem = currentState.items.find(action.payload)
-    // console.log(deleteItem)
-    // let index = currentState.items.indexOf(deletedItem)
-    // items.splice(index, 1)
     return {...currentState, items: action.payload}
   }else {
     return currentState

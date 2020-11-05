@@ -201,6 +201,7 @@ const Title = styled.Text`
   font-family: Raleway_600SemiBold;
   font-size: 28px;
   color: #3C413D;
+  margin-top: 10px;
 `
 
 const Instructions = styled.Text`

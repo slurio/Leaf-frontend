@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { Text, ScrollView, Image} from 'react-native';
+import { ScrollView, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -15,9 +15,9 @@ import { HOST_WITH_PORT } from '../environment';
 
 function ResultScreen({route}) {
     const [favorite, setFavorite] = useState(false)
-    const country = route.params[0].country_data[0].country
-    const country_data = route.params[0].country_data[0].description
-    const fibers = route.params[0].fibers_data
+    const country = route.params[0].country_data[0] ? route.params[0].country_data[0].country : false
+    const country_data = route.params[0].country_data[0] ? route.params[0].country_data[0].description : false
+    const fibers = route.params[0].fibers_data ? route.params[0].fibers_data : false
     const clothingDescription = route.params[1].description ? route.params[1].description : 'Item'+ Math.floor(Math.random()*(999-100+1)+100).toString()
 
     const user = useSelector(state => state.user);
@@ -89,7 +89,7 @@ function ResultScreen({route}) {
                 style={{width: 150, height: 150}}
                 source={require('../assets/countries/Vietnam.png')}/>;
       default:
-        return <Text>No Country Image found for your result</Text>
+        return <NoResultText>No Country Image found for your result</NoResultText>
     }}
 
     return(
@@ -99,25 +99,26 @@ function ResultScreen({route}) {
           </StyledBorderLine>
           <TopContainer>
             {renderImage()}
-            <TouchableOpacity onPress={() => {
-              SaveItem()
-            }}>
-              {favorite ? <MaterialCommunityIcons name="heart" color='#222222' size={40} /> : <MaterialCommunityIcons name="heart-outline" color='#222222' size={40} />}
-            </TouchableOpacity>
+            {country ? 
+              <TouchableOpacity onPress={() => {
+                SaveItem()
+              }}>
+                {favorite ? <MaterialCommunityIcons name="heart" color='#222222' size={40} /> : <MaterialCommunityIcons name="heart-outline" color='#222222' size={40} />}
+              </TouchableOpacity>
+            : null}
           </TopContainer>
-  
           <BottomContainer>
             <CountryBorderLine>
-              <Country>Made In {country.toUpperCase()}</Country>
-              <CountryData>{country_data}</CountryData>
+              {country ? <Country>Made In {country.toUpperCase()}</Country> : <Country>No Country Result Found</Country>}
+              {country_data ? <CountryData>{country_data}</CountryData> : <CountryData>No Description</CountryData>}
             </CountryBorderLine>
 
             <FiberBorderLine>
               <FiberTitle>Fiber Content</FiberTitle>
-              {renderFibers()}
+              {fibers ? renderFibers() : <NoResultText>No Results</NoResultText>}
             </FiberBorderLine>
             <CareTitle>Care Instructions</CareTitle>
-            {renderCareInstruction()}
+            {fibers? renderCareInstruction() : <NoResultText>No Results</NoResultText>}
           </BottomContainer>
         </ScrollView>
         
@@ -125,6 +126,14 @@ function ResultScreen({route}) {
 }
 
 export default ResultScreen;
+
+const NoResultText = styled.Text`
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-family: Raleway_400Regular_Italic;
+  font-size: 18px;
+  color: #222;
+`
 
 const FiberBorderLine = styled.View`
   border-bottom-width: .5px;

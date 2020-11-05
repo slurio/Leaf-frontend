@@ -24,10 +24,12 @@
     "expo": "~39.0.2",
     "expo-camera": "~9.0.0",
     "expo-font": "~8.3.0",
+    "expo-splash-screen": "~0.6.1",
     "expo-status-bar": "~1.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+    "react-native-expo-fancy-alerts": "^2.1.0",
     "react-native-gesture-handler": "~1.7.0",
     "react-native-modalbox": "^2.0.2",
     "react-native-paper": "^4.2.0",
@@ -45,8 +47,7 @@
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.2.0",
-    "victory-native": "^35.3.0",
-    "expo-splash-screen": "~0.6.1"
+    "victory-native": "^35.3.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",

@@ -6,7 +6,7 @@ import {useSelector} from 'react-redux'
 import { HOST_WITH_PORT } from '../environment';
 
 const Home = () => {
-    const username = useSelector(state => state.user.username)
+    const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
     const [facts, setFacts] = useState([])
     const [randomFact,setRandomFact] = useState('')
 

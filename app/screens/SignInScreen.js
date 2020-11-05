@@ -7,14 +7,14 @@ import { loginUser } from '../redux/action'
 import { HOST_WITH_PORT } from '../environment';
 
 function SignInScreen({navigation}, props) {
-   const [username,setUsername] = useState('')
+   const [userEmail,setUserEmail] = useState('')
    const [password,setPassword] = useState('')
 
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(user.username){
+        if(user){
             navigation.navigate('HomeNav') 
         }
     })
@@ -23,13 +23,13 @@ function SignInScreen({navigation}, props) {
         setPassword(text)
     }
 
-    const renderUsername = (text) => {
-        setUsername(text)
+    const renderUser = (text) => {
+        setUserEmail(text)
     }
 
     const submitHandler = () => {
         let userObj = {
-            username: username,
+            username: userEmail,
             password: password
         }
         let options={
@@ -55,12 +55,12 @@ function SignInScreen({navigation}, props) {
                 <SignIn>Sign In</SignIn>
                 <Greeting>Hi there! Nice to see you again.</Greeting>
             </GreetingContainer>
-            {user.username === false ? <Error>Username or Password Incorrect!</Error> : null}
+            {user === false ? <Error>Password incorrect or no known user</Error> : null}
              <StyledTextInput
-                placeholder="Username"
+                placeholder="Email Address"
                 placeholderTextColor="grey"
-                value={username}
-                onChangeText={text => renderUsername(text)}
+                value={userEmail}
+                onChangeText={text => renderUser(text)}
              />
               <StyledTextInput
                 placeholder="Password"
