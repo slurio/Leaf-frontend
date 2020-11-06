@@ -58,6 +58,7 @@ function SignInScreen({navigation}, props) {
             {user === false ? <Error>Password incorrect or no known user</Error> : null}
              <StyledTextInput
                 placeholder="Email Address"
+                autoCapitalize = 'none'
                 placeholderTextColor="grey"
                 value={userEmail}
                 onChangeText={text => renderUser(text)}

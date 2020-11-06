@@ -6,6 +6,7 @@ import { Camera } from 'expo-camera';
 
 import { FancyAlert } from 'react-native-expo-fancy-alerts';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -35,11 +36,11 @@ function CameraScreen({navigation}) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Camera style={{ flex: 1 }} type={type} ref={ref => {
         setCameraRef(ref) ;
       }}>
-        <View
+        <SafeAreaView
           style={{
             flex: 1,
             backgroundColor: 'transparent',
@@ -74,9 +75,9 @@ function CameraScreen({navigation}) {
               <InnerCircleButton></InnerCircleButton>
             </OuterCircleButton>
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       </Camera>
-    </View>
+    </SafeAreaView>
   );
 }
 

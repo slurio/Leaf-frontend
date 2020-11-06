@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/native'
-import { Alert } from 'react-native';
+import { Alert, Dimensions } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { HOST_WITH_PORT, API_KEY } from '../environment';
@@ -55,8 +55,11 @@ function ScanScreen({navigation, route}) {
 
       fetch(`${HOST_WITH_PORT}/items/`, options)
       .then(resp => resp.json())
-      .then(itemData => navigation.navigate('ResultScreen', [itemData, {description: clothingDescription}]))
+      .then(itemData => navigation.push('ResultScreen', [itemData, {description: clothingDescription}]))
     }
+
+    let screenWidth = Dimensions.get('window').width;
+    let screenHeight = Dimensions.get('window').height;
        
     return(
       <ScrollView style={{backgroundColor:'white'}}>
@@ -97,8 +100,8 @@ function ScanScreen({navigation, route}) {
             </SubmitButton>
           </ImageView>  
         </ViewContatiner> 
-        :<LogoContainer>
-          <LogoImage source={require('../assets/threadlogo.png')}/> 
+        :<LogoContainer style={{width: screenWidth, height: screenHeight}}>
+          <LogoImage source={require('../assets/whitethreadlogo.png')}/> 
           <Logo>threading your results...</Logo>
         </LogoContainer>
         }
@@ -122,17 +125,17 @@ const BottomBorderLine = styled.View`
 const LogoImage = styled.Image`
   width: 100px;
   height: 100px;
+  margin-top: -120px;
 `
 
 const LogoContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  top: 200px;
+  background-color: black;
 `
 const Logo = styled.Text`
-  margin-top: 25px;
-  color: #3C413D;
+  color: white;
   font-size: 20px;
   font-weight: 300;
 `

@@ -30,6 +30,7 @@ import SignInScreen from "./app/screens/SignInScreen";
 import {createStore} from 'redux'; 
 import { Provider } from 'react-redux';
 import { deleteItem } from "./app/redux/action";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const rootReducer = (currentState= {user:'', items: []}, action) => {
@@ -77,7 +78,7 @@ export default function App() {
 
       return (
         <Provider store={store}>
-          <View style={{ flex: 1, backgroundColor:'#fff'}}>
+          <SafeAreaView style={{ flex: 1, backgroundColor:'#fff'}}>
              <NavigationContainer>
               <Stack.Navigator headerMode={'float'}>
                 <Stack.Screen 
@@ -92,6 +93,9 @@ export default function App() {
                   headerStyle: {
                     backgroundColor: '#222',
                     height: (Platform.OS === 'ios') ? 70 : 0,
+                    elevation: 0,
+                    shadowOpacity: 0,
+                    borderBottomWidth: 0,
                   },
                   headerTintColor: '#fff',
                   headerTitleStyle: {
@@ -104,7 +108,7 @@ export default function App() {
                 <Stack.Screen name="SignupScreen" component={SignupScreen} options={{headerShown: false}}/>
               </Stack.Navigator>
             </NavigationContainer> 
-          </View>
+          </SafeAreaView>
         </Provider>
       )
 

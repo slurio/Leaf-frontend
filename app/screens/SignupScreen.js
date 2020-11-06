@@ -70,6 +70,7 @@ function SignInScreen({ navigation }) {
                 {newUser === false ? <Error>Email exists or Passwords do not match!</Error> : null}
                 <StyledTextInput
                     placeholder="Email Address"
+                    autoCapitalize = 'none'
                     placeholderTextColor="grey"
                     value={username}
                     onChangeText={text => renderUsername(text)}
