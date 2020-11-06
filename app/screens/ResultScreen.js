@@ -24,7 +24,8 @@ function ResultScreen({route}) {
     const dispatch = useDispatch();
 
     const SaveItem = () => {
-      if(!favorite) {    
+      if(!favorite) {  
+        setFavorite(true)  
         let itemObj = {
           title: clothingDescription,
           user_id: user.id,
@@ -44,7 +45,6 @@ function ResultScreen({route}) {
         fetch(`${HOST_WITH_PORT}/items/`, options)
         .then(resp => resp.json())
         .then(savedItem => {
-          setFavorite(true)
           dispatch(SaveFavorite(savedItem))
         })
       }

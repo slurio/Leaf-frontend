@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import { ScrollView, View, Image, Dimensions } from 'react-native';
 
-import {useSelector, useDispatch, useStore } from 'react-redux';
+import {useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../redux/action';
 
-import { PieChart } from 'react-native-svg-charts'
 import { VictoryPie } from "victory-native";
 
 const Profile = ({navigation}) => {
-    const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
-    const randomColor = () => ('#' + ((Math.random() * 0xffffff) << 0).toString(16) + '000000').slice(0, 7)
     const screenWidth = Math.round(Dimensions.get('window').width);
     const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
     const items = useSelector(state => state.items)
@@ -36,7 +33,7 @@ const Profile = ({navigation}) => {
 
     let naturalGraphData = []
     for(const [key, value] of Object.entries(naturalFiberData)) {
-        naturalGraphData.push({x: key.toUpperCase(), y: value})
+        naturalGraphData.push({x: key, y: value})
     }
 
     let syntheticFiberyData = syntheticFiberArray.reduce(function(obj,b){
@@ -46,7 +43,7 @@ const Profile = ({navigation}) => {
 
     let syntheticGraphData = []
     for(const [key, value] of Object.entries(syntheticFiberyData)) {
-        syntheticGraphData.push({x: key.toUpperCase(), y: value})
+        syntheticGraphData.push({x: key, y: value})
     }
 
     let countryData = countryArray.reduce(function(obj,b){
@@ -56,7 +53,7 @@ const Profile = ({navigation}) => {
 
     let countryGraphyData = []
     for(const [key, value] of Object.entries(countryData)) {
-        countryGraphyData.push({x: key.toUpperCase(), y: value})
+        countryGraphyData.push({x: key, y: value})
     }
     
     const logOutUser = () => {
@@ -83,16 +80,18 @@ const Profile = ({navigation}) => {
 
     return(
        <ScrollView style={{backgroundColor: '#fff'}}>
-           <View style={{margin: 30, marginBottom:10}}>
-               <ProfileGreeting>Your profile  to see whats in your closet etc.</ProfileGreeting>
+           <View style={{margin: 20, marginLeft: -2,marginRight: -2, marginBottom:10}}>
             <TopContainer>
                 <UserContainer>
-                    <UserText>Logged in as {username}</UserText>
+                    <UserText>Logged in as {username.toUpperCase()}</UserText>
                 </UserContainer>
                     <LogOutButton onPress={() => logOutUser()}>
                         <LogOutText>Log Out</LogOutText>
                     </LogOutButton>
             </TopContainer>
+                <View style={{marginLeft: 20, marginRight:20}}>
+                    <ProfileGreeting>Your closet overview to see how much natural and synthetic fibers make up your closet along with your clothing origins. </ProfileGreeting>
+                </View>
             </View>
             <View style={{flex:1, alignItems:'center'}}>
                 <Image style={{width: screenWidth, height:250, marginTop:20}} source={require('../assets/Profile.jpg')}/>
@@ -103,7 +102,7 @@ const Profile = ({navigation}) => {
                             data= {naturalGraphData}
                             colorScale={naturalGraphColors}
                             height={320}
-                            style={{labels:{fontSize: 16, fill: 'black'},parent:{alignItems:'center', marginRight: 18}}}
+                            style={{labels:{fontSize: 18, fill: 'black'},parent:{alignItems:'center', marginRight: 18}}}
                         />
                     </View>
                 </TopChartContainer>
@@ -113,7 +112,7 @@ const Profile = ({navigation}) => {
                         data= {syntheticGraphData}
                         colorScale={syntheticGraphColors}
                         height={320}
-                        style={{labels:{fontSize: 16, fill: 'white'}}}
+                        style={{labels:{fontSize: 18, fill: 'white'},parent:{marginBottom:30}}}
                     />
                 </BottomChartContainter>
                 <CountryChartContainer>
@@ -122,7 +121,7 @@ const Profile = ({navigation}) => {
                         data= {countryGraphyData}
                         colorScale={countryGraphColors}
                         height={320}
-                        style={{labels:{fontSize: 16, fill: 'black'}}}
+                        style={{labels:{fontSize: 18, fill: 'black'}}}
                     />
                 </CountryChartContainer>
             </View>
@@ -151,25 +150,24 @@ const SyntheticTitle = styled.Text`
 const BottomChartContainter = styled.View`
     background-color: #222;
     width: 420px;
-    height: 45%;
     margin-top: 320px;
     padding-top: 30px;
     align-items: center;
-    margin-bottom: -150px;
+   
 `
 
 const CountryChartContainer = styled.View`
     background-color: #fff;
     width: 420px;
-    height: 45%;
-    padding-top: -100px;
+    padding-top: 10px;
+    margin-bottom:10px;
     align-items: center;
 `
 
 const CountryTitle = styled.Text`
     text-align: center;
     margin-top: 20px;
-    margin-bottom: -10px;
+    margin-bottom: 10px;
     font-size: 24px;
     font-family: Raleway_700Bold;
     color: #222;
@@ -183,17 +181,16 @@ const TopChartContainer = styled.View`
 `
 
 const ProfileGreeting = styled.Text`
+    font-family: Raleway_400Regular_Italic;
+    font-size: 18px;
+    color: #222;    
     text-align: center;
-    margin-bottom: 25px;
+    margin-top: 24px;
 `
 
 const UserContainer = styled.View`
-    width: 170px;
-    height: 38px;
     align-items: center;
     justify-content: center;
-    border-radius: 4px;
-    border: 1px solid black;
 `
 
 const UserText = styled.Text`
@@ -219,7 +216,7 @@ const LogOutText = styled.Text`
 const TopContainer = styled.View`
     flex: 1;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
 `
 
 const StyledView = styled.View`

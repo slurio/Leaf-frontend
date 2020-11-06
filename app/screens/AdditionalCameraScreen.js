@@ -1,107 +1,162 @@
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components/native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 
+import { FancyAlert } from 'react-native-expo-fancy-alerts';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AdditionalCameraScreen({navigation, route}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
+  const [modalVisible, setModalVisibility] = useState(false)
 
   useEffect(() => {
       (async () => {
         const { status } = await Camera.requestPermissionsAsync();
         setHasPermission(status === 'granted');
       })();
-    }, []);
+  }, []);
       
   if (hasPermission === null) {
       return <View />;
-    }
-    if (hasPermission === false) {
+  }
+  if (hasPermission === false) {
       return <Text>No access to camera</Text>;
-    }
+  }
+
+  const renderResult = () => {
+      navigation.push('ScanScreen', {backTag: photo, frontTag: route.params.front_img})
+      setModalVisibility(false)
+  }
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <Camera style={{ flex: 1 }} type={type} ref={ref => {
         setCameraRef(ref) ;
       }}>
-        <View
+        <SafeAreaView
           style={{
             flex: 1,
             backgroundColor: 'transparent',
             justifyContent: 'flex-end'
-          }}>
-          <TouchableOpacity
-            style={{
-              flex: 0.1,
-              alignSelf: 'flex-end'
-            }}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back
-              );
-            }}>
-            <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={{alignSelf: 'center'}} onPress={async() => {
+          }}
+        >
+        {modalVisible ?     
+          <FancyAlert
+            visible={modalVisible}
+            icon={<Circle><Text><MaterialCommunityIcons name="check" color='white' size={40} /></Text></Circle>}
+            style={{ backgroundColor: 'white' }}
+          >
+            <ModalText>IMAGE SUCCESS!</ModalText>
+            <ButtonContainer>
+              <ProceedButton onPress={() => renderResult()}>
+                <ProceedButtonText>PROCEED</ProceedButtonText>
+              </ProceedButton>
+              <RetakeButton onPress={() => setModalVisibility(false)}>
+                <RetakeButtonText>RETAKE</RetakeButtonText>
+              </RetakeButton>
+            </ButtonContainer>
+          </FancyAlert>
+        : null}
+
+          <TouchableOpacity style={{alignSelf: 'center', marginBottom:20}} onPress={async() => {
             if(cameraRef){
               photo = await cameraRef.takePictureAsync({base64: true});
-              navigation.push('ScanScreen', {photos: [photo, route.params]})               
+              setModalVisibility(true)       
             }
           }}>
-            <View style={{ 
-               borderWidth: 2,
-               borderRadius:"50%",
-               borderColor: 'white',
-               height: 50,
-               width:50,
-               display: 'flex',
-               justifyContent: 'center',
-               alignItems: 'center'}}
-            >
-              <View style={{
-                 borderWidth: 2,
-                 borderRadius:"50%",
-                 borderColor: 'white',
-                 height: 40,
-                 width:40,
-                 backgroundColor: 'white'}} >
-              </View>
-            </View>
+            <OuterCircleButton>
+              <InnerCircleButton></InnerCircleButton>
+            </OuterCircleButton>
           </TouchableOpacity>
-        </View>
+        </SafeAreaView>
       </Camera>
-    </View>
+    </SafeAreaView>
   );
 }
 
-export default AdditionalCameraScreen
+export default AdditionalCameraScreen;
 
+const RetakeButtonText = styled.Text`
+  text-align: center;
+  color: #222;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Raleway_700Bold;
+`
 
+const ProceedButtonText = styled.Text`
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: Raleway_700Bold;
+`
 
+const ProceedButton = styled.TouchableOpacity`
+  margin-right: 10px;
+  margin-top: -5px;
+  padding-top: 10px;
+  background-color: black;
+  width: 120px;
+  height: 40px;
+`
 
-// import React from 'react'
-// import styled from 'styled-components/native'
-// import { Text, Button } from 'react-native'
+const RetakeButton = styled.TouchableOpacity`
+  padding-top: 10px
+  margin-top: -5px;
+  margin-bottom: 20px;
+  border: 1.5px solid black;
+  width: 120px;
+  height: 40px;
+`
 
-// function CameraScreen({navigation}) {
-//     return(
-//         <StyledView>
-//              <Text>CameraScreen!</Text>
-//              <Button title="Go Back" onPress={()=> navigation.navigate('ScanScreen')}/>
-//          </StyledView>
-//     )
-// }
+const ButtonContainer = styled.View`
+  flex-direction: row;
+`
 
-// export default CameraScreen;
+const InnerCircleButton = styled.View`
+  border-width: 2px;
+  border-radius: 50px;
+  border-color: white;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+`
 
-// const StyledView = styled.View`
-//     flex: 1;
-//     justify-content: center;
-//     align-items: center;
-// ` 
+const OuterCircleButton = styled.View`
+  border-width: 2px;
+  border-radius: 50px;
+  border-color: white;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+
+const ModalText = styled.Text`
+  margin-top: -16px;
+  margin-bottom: 32px;
+  color: #222;
+  font-weight: bold;
+  font-size: 22px;
+  font-family: Raleway_700Bold;
+`
+
+const Circle = styled.View`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 50px;
+  width: 100%;
+`

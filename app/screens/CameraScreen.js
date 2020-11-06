@@ -8,14 +8,12 @@ import { FancyAlert } from 'react-native-expo-fancy-alerts';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-
-
-function CameraScreen({navigation}) {
+function CameraScreen({navigation, route}) {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [modalVisible, setModalVisibility] = useState(false)
-
+  
   useEffect(() => {
       (async () => {
         const { status } = await Camera.requestPermissionsAsync();

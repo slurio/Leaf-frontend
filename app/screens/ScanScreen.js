@@ -6,14 +6,24 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { HOST_WITH_PORT, API_KEY } from '../environment';
 import { ScrollView } from 'react-native-gesture-handler';
 
+//reduntant but for back image pass front image information along to additional camera screen and pass both results back to here
+// add function to read back results ?
+// pass both results to backend / have conditional to check if back image is there to send to back?
+
 function ScanScreen({navigation, route}) {
-    const [text,setText] = useState('')
     const[frontImg, setFrontImg] = useState('')
+    const[backImg, setBackImg] = useState('')
     const [clothingDescription, setClothingDescription] = useState('')
     const [appReady, setAppReady] = useState(true)
+   
+    let screenWidth = Dimensions.get('window').width;
+    let screenHeight = Dimensions.get('window').height;
 
     useEffect(() => {
-      setFrontImg(route.params)
+      if(route.params){
+        setFrontImg(route.params.frontTag)
+        setBackImg(route.params.backTag)
+      }
     },[])
 
     const handleSubmit = () => {
@@ -22,7 +32,7 @@ function ScanScreen({navigation, route}) {
         method: 'POST',
         body: JSON.stringify({
           "requests": [{
-          "image": { "content": frontImg.frontTag.base64},
+          "image": { "content": frontImg.base64},
           "features": [
             { "type": "TEXT_DETECTION" }
             ]
@@ -32,17 +42,45 @@ function ScanScreen({navigation, route}) {
       .then(response => { return response.json()})
       .then(jsonRes => {
         let text = jsonRes.responses[0].fullTextAnnotation.text
-        setText(text)
-        renderTagText(text)
+        backImg ? fetchBackTagText(text): renderTagText(text, false)
       }).catch(err => {
         console.log('Error', err)
       })
     }
 
-    const renderTagText = (text) => {
-      let tagObj = {
-        front_tag_img: text
-      }
+    const fetchBackTagText = (frontTagText) => {
+      console.log('here')
+      fetch("https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY, {
+        method: 'POST',
+        body: JSON.stringify({
+          "requests": [{
+          "image": { "content": backImg.base64},
+          "features": [
+            { "type": "TEXT_DETECTION" }
+            ]
+          }]
+        })
+      })
+      .then(response => { return response.json()})
+      .then(jsonRes => {
+        let text = jsonRes.responses[0].fullTextAnnotation.text
+        renderTagText(frontTagText, text)
+      }).catch(err => {
+        console.log('Error', err)
+      })
+    }
+
+    const renderTagText = (text, backText) => {
+      
+      (backText) ?
+        tagObj = {
+          front_tag_img: text,
+          back_tag_img: backText
+        }
+      : 
+        tagObj = {
+          front_tag_img: text
+        }
 
       let options={
         method: "POST",
@@ -57,9 +95,6 @@ function ScanScreen({navigation, route}) {
       .then(resp => resp.json())
       .then(itemData => navigation.push('ResultScreen', [itemData, {description: clothingDescription}]))
     }
-
-    let screenWidth = Dimensions.get('window').width;
-    let screenHeight = Dimensions.get('window').height;
        
     return(
       <ScrollView style={{backgroundColor:'white'}}>
@@ -68,7 +103,7 @@ function ScanScreen({navigation, route}) {
           <Title>Upload Tag Images</Title>
           <Instructions onPress={()=> navigation.push('InstructionScreen')}>Instructions</Instructions>
           <BottomBorderLine>
-            {frontImg ? 
+            {frontImg ?
               <StyledTextInput
                 placeholder="ITEM DESCRIPTION HERE"
                 placeholderTextColor="grey"
@@ -79,28 +114,32 @@ function ScanScreen({navigation, route}) {
           </BottomBorderLine>
           <ImageView>
             <StyledFrontLabel>FRONT TAG IMAGE</StyledFrontLabel>
-            {frontImg ? 
-              <FrontImg 
-              style={{width: 270, height: 160}}
-              source={{uri: `data:image/png;base64,${frontImg.frontTag.base64}`}}/>
+            {frontImg ?
+              <Img 
+              style={{width: 290, height: 170}}
+              source={{uri: `data:image/png;base64,${frontImg.base64}`}}/>
               :<ImageContainer onPress={()=> navigation.navigate('CameraScreen')}>
-                <MaterialCommunityIcons style={{top: 30, marginLeft: 80}} name="camera" color='#7f7f7f' size={110} />
+                <MaterialCommunityIcons style={{top: 34, marginLeft: 90}} name="camera" color='#7f7f7f' size={110} />
               </ImageContainer>
             }
             <StyledFrontLabel>BACK TAG IMAGE</StyledFrontLabel>
-            <ImageContainer onPress={()=> 
-              Alert.alert("Sorry!","This feature is coming soon", [
-                {text: "Ok", onPress: () => null}
-              ]) 
-            }>
-              <MaterialCommunityIcons style={{top: 30, marginLeft: 80}} name="camera" color='#7f7f7f' size={110} />
-            </ImageContainer>
+            { backImg ?
+              <Img 
+              style={{width: 290, height: 170}}
+              source={{uri: `data:image/png;base64,${backImg.base64}`}}/>
+            :
+              <ImageContainer onPress={()=>
+                navigation.navigate('AdditionalCameraScreen',{front_img: frontImg})
+              }>
+                <MaterialCommunityIcons style={{top: 34, marginLeft: 90}} name="camera" color='#7f7f7f' size={110} />
+              </ImageContainer>
+            }
             <SubmitButton onPress={()=> handleSubmit()}>
                 <StyledText>Submit</StyledText>
             </SubmitButton>
           </ImageView>  
         </ViewContatiner> 
-        :<LogoContainer style={{width: screenWidth, height: screenHeight}}>
+        :<LogoContainer style={{width: screenWidth, height: 750}}>
           <LogoImage source={require('../assets/whitethreadlogo.png')}/> 
           <Logo>threading your results...</Logo>
         </LogoContainer>
@@ -112,7 +151,7 @@ function ScanScreen({navigation, route}) {
 export default ScanScreen;
 
 const MarginSpace = styled.Text`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `
 
 const BottomBorderLine = styled.View`
@@ -125,19 +164,21 @@ const BottomBorderLine = styled.View`
 const LogoImage = styled.Image`
   width: 100px;
   height: 100px;
-  margin-top: -120px;
+  margin-top: 30px;
 `
 
 const LogoContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: black;
+  background-color: #222;
 `
 const Logo = styled.Text`
   color: white;
+  margin-top: 10px;
   font-size: 20px;
-  font-weight: 300;
+  font-family: Raleway_700Bold;
+  letter-spacing: 2px;
 `
 
 const StyledTextInput = styled.TextInput`
@@ -160,7 +201,7 @@ const ViewContatiner = styled.View`
   background-color: #fff;
 `
 
-const FrontImg = styled.Image`
+const Img = styled.Image`
 `
 
 const ImageView = styled.View`
@@ -186,18 +227,18 @@ const StyledText = styled.Text`
 
 const SubmitButton = styled.TouchableOpacity`
     background-color: #2a2a2a;
-    width: 270px;
-    height: 50px;
+    width: 290px;
+    height: 60px;
     align-items: center;
     justify-content: center;
-    margin-top: 14px;
+    margin-top: 20px;
     border: 2px solid black;
 `
 
 const ImageContainer = styled.TouchableOpacity`
   background-color: #ECECEC;
-  width: 270px;
-  height: 160px;
+  width: 290px;
+  height: 170px;
 `
 
 const Title = styled.Text`

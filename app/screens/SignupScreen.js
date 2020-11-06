@@ -6,7 +6,7 @@ import { signUpUser } from '../redux/action'
 
 import { HOST_WITH_PORT } from '../environment';
 
-function SignInScreen({ navigation }) {
+function SignupScreen({ navigation }) {
    const [username,setUsername] = useState('')
    const [name,setName] = useState('')
    const [password,setPassword] = useState('')
@@ -62,52 +62,53 @@ function SignInScreen({ navigation }) {
     return(
         <StyledView>
             <StyledContainer>
-                <Logo>The Thread</Logo>
-                <GreetingContainer>
-                    <SignIn>Sign Up</SignIn>
-                    <Greeting>We are excited for you to join!</Greeting>
-                </GreetingContainer>
-                {newUser === false ? <Error>Email exists or Passwords do not match!</Error> : null}
-                <StyledTextInput
-                    placeholder="Email Address"
-                    autoCapitalize = 'none'
-                    placeholderTextColor="grey"
-                    value={username}
-                    onChangeText={text => renderUsername(text)}
-                />
-                <StyledTextInput
-                    placeholder="Your Name"
-                    placeholderTextColor="grey"
-                    value={name}
-                    onChangeText={text => renderName(text)}
-                />
-                <StyledTextInput
-                    placeholder="Password"
-                    placeholderTextColor="grey"
-                    secureTextEntry={true}
-                    value={password}
-                    onChangeText={text => renderPassword(text)}
-                />
-                <StyledTextInput
-                    placeholder="Password Confirmation"
-                    placeholderTextColor="grey"
-                    secureTextEntry={true}
-                    value={passwordConfirmation}
-                    onChangeText={text => renderPasswordConfirmation(text)}
-                />
-                <Container onPress={()=> submitHandler()}>
-                    <StyledButtonText>SIGN UP</StyledButtonText>
-                </Container>
-                <SignUpContainer>
-                    <StyledText>Have an account?</StyledText>
-                    <Link onPress={()=> navigation.navigate('SignInScreen')}>Sign In</Link>
-                </SignUpContainer>
+
+            <Logo>THE THREAD</Logo>
+            <GreetingContainer>
+                <SignIn>Sign Up</SignIn>
+                <Greeting>We are excited for you to join!</Greeting>
+            </GreetingContainer>
+            {newUser === false ? <Error>Email exists or Passwords do not match!</Error> : null}
+             <StyledTextInput
+                placeholder="Email Address"
+                autoCapitalize = 'none'
+                placeholderTextColor="grey"
+                value={username}
+                onChangeText={text => renderUsername(text)}
+             />
+              <StyledTextInput
+                placeholder="Your Name"
+                placeholderTextColor="grey"
+                value={name}
+                onChangeText={text => renderName(text)}
+             />
+              <StyledTextInput
+                placeholder="Password"
+                placeholderTextColor="grey"
+                secureTextEntry={true}
+                value={password}
+                onChangeText={text => renderPassword(text)}
+             />
+              <StyledTextInput
+                placeholder="Password Confirmation"
+                placeholderTextColor="grey"
+                secureTextEntry={true}
+                value={passwordConfirmation}
+                onChangeText={text => renderPasswordConfirmation(text)}
+             />
+             <Container onPress={()=> submitHandler()}>
+                 <StyledButtonText>SIGN UP</StyledButtonText>
+            </Container>
+            <SignUpContainer>
+                <StyledText>Have an account?</StyledText>
+                <Link onPress={()=> navigation.navigate('SignInScreen')}>Sign In</Link>
+            </SignUpContainer>
             </StyledContainer>
-        </StyledView>
+         </StyledView>
     )
 }
 
-export default SignInScreen;
+export default SignupScreen;
 
 const Error = styled.Text`
     font-size: 16px;
@@ -116,20 +117,21 @@ const Error = styled.Text`
 `
 
 const StyledContainer = styled.View`
-    top: 100px;
+    top: 50px;
     align-items: center;
 `
  const SignUpContainer = styled.View`
-    margin-top: 15px;
+    margin-top: 20px;
     flex: 1;
     flex-direction: row;
-    color: #222;
+    color: #fff;
  `
 
  const StyledText = styled.Text`
     font-size: 16px;
     margin-right: 5px;
     font-family: Raleway_300Light;
+    color: #222;
  `
 
  const Link = styled.Text`
@@ -140,10 +142,9 @@ const StyledContainer = styled.View`
 
 const Logo = styled.Text`
     color: #222;
-    font-weight: bold;
-    font-size: 60px;
+    font-size: 50px;
+    font-weight: 500;
     padding-bottom: 25px;
-    font-family: Raleway_400Regular;
 `
 
 const GreetingContainer = styled.View`
@@ -151,9 +152,9 @@ const GreetingContainer = styled.View`
 `
 
 const SignIn = styled.Text`
+    margin-bottom: 10px;
     font-size: 32px;
     color: #222;
-    padding-bottom: 10px;
     font-family: Raleway_600SemiBold;
 `
 
@@ -171,20 +172,20 @@ const Container = styled.TouchableOpacity`
     align-items: center;
     justify-content: center;
     margin-top: 10px;
-    border: 1.5px solid black;
+    border: 2px solid black;
 `
 
 const StyledButtonText = styled.Text`
     color: #222;
     font-size: 20px;
-    font-family: Raleway_300Light;
+    font-family: Raleway_500Medium;
 `
 
 
 const StyledTextInput = styled.TextInput`
     width: 250px;
     height: 35px;
-    background-color: lightgrey;
+    background-color: #ECECEC;
     margin: 10px;
     padding: 8px;
     borderRadius: 14px;
@@ -198,3 +199,142 @@ const StyledView = styled.View`
     align-items: center;
     background-color: #fff;
 ` 
+
+//     return(
+//         <StyledView>
+//             <StyledContainer>
+//                 <Logo>The Thread</Logo>
+//                 <GreetingContainer>
+//                     <SignIn>Sign Up</SignIn>
+//                     <Greeting>We are excited for you to join!</Greeting>
+//                 </GreetingContainer>
+//                 {newUser === false ? <Error>Email exists or Passwords do not match!</Error> : null}
+//                 <StyledTextInput
+//                     placeholder="Email Address"
+//                     autoCapitalize = 'none'
+//                     placeholderTextColor="grey"
+//                     value={username}
+//                     onChangeText={text => renderUsername(text)}
+//                 />
+//                 <StyledTextInput
+//                     placeholder="Your Name"
+//                     placeholderTextColor="grey"
+//                     value={name}
+//                     onChangeText={text => renderName(text)}
+//                 />
+//                 <StyledTextInput
+//                     placeholder="Password"
+//                     placeholderTextColor="grey"
+//                     secureTextEntry={true}
+//                     value={password}
+//                     onChangeText={text => renderPassword(text)}
+//                 />
+//                 <StyledTextInput
+//                     placeholder="Password Confirmation"
+//                     placeholderTextColor="grey"
+//                     secureTextEntry={true}
+//                     value={passwordConfirmation}
+//                     onChangeText={text => renderPasswordConfirmation(text)}
+//                 />
+//                 <Container onPress={()=> submitHandler()}>
+//                     <StyledButtonText>SIGN UP</StyledButtonText>
+//                 </Container>
+//                 <SignUpContainer>
+//                     <StyledText>Have an account?</StyledText>
+//                     <Link onPress={()=> navigation.navigate('SignInScreen')}>Sign In</Link>
+//                 </SignUpContainer> 
+//             </StyledContainer>
+//         </StyledView>
+//     )
+// }
+
+// export default SignInScreen;
+
+// const Error = styled.Text`
+//     font-size: 16px;
+//     font-family: Raleway_600SemiBold;
+//     color: red;
+// `
+
+//  const SignUpContainer = styled.View`
+//     flex: 1;
+//     flex-direction: row;
+//     color: #222;
+//  `
+
+//  const StyledText = styled.Text`
+//     font-size: 16px;
+//     margin-right: 5px;
+//     font-family: Raleway_300Light;
+//  `
+
+//  const Link = styled.Text`
+//     font-size: 16px;
+//     text-decoration-line: underline;
+//     font-family: Raleway_600SemiBold;
+//  `
+
+// const Logo = styled.Text`
+//     color: #222;
+//     font-weight: bold;
+//     font-size: 60px;
+//     font-family: Raleway_400Regular;
+// `
+
+// const GreetingContainer = styled.View`
+//     justify-content: flex-start;
+// `
+
+// const SignIn = styled.Text`
+//     font-size: 32px;
+//     color: #222;
+//     font-family: Raleway_600SemiBold;
+// `
+
+// const Greeting = styled.Text`
+//     font-size: 18px;
+//     color: #222;
+//     font-family: Raleway_300Light;
+// `
+
+// const Container = styled.TouchableOpacity`
+//     width: 100px;
+//     height: 100px;
+//     borderRadius: 100px;
+//     align-items: center;
+//     justify-content: center;
+//     border: 1.5px solid black;
+// `
+
+// const StyledButtonText = styled.Text`
+//     color: #222;
+//     font-size: 20px;
+//     font-family: Raleway_300Light;
+// `
+
+
+// const StyledTextInput = styled.TextInput`
+//     width: 250px;
+//     height: 35px;
+//     background-color: lightgrey;
+//     margin: 8px;
+//     padding: 8px;
+//     borderRadius: 14px;
+//     font-size: 18px;
+//     font-family: Raleway_300Light;
+// `
+
+// const StyledContainer = styled.View`
+//     flex: 1;
+//     justify-content: space-around;
+//     align-items: center;
+
+// `
+
+
+// const StyledView = styled.View`
+//     flex: 1;
+//     justify-content: center;
+//     align-items: center;
+//     background-color: #fff;
+// ` 

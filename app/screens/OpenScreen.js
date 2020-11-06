@@ -23,6 +23,7 @@ export default OpenScreen;
 const LogoImage = styled.Image`
     width: 150px;
     height: 150px;
+    margin-bottom: 15px;
 `
 
 const StyledText = styled.Text`
@@ -43,16 +44,15 @@ const StyledSignInText = styled.Text`
 const LogInButton = styled.TouchableOpacity`
     width: 160px;
     height: 45px;
-    top: -180px;
     align-items: center;
     justify-content: center;
     background-color:#fff;
     border-radius: 10px;
+    margin-bottom: 20px;
 `
 const SignUpButton = styled.TouchableOpacity`
     width: 160px;
     height: 45px;
-    top: -160px;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
@@ -60,7 +60,7 @@ const SignUpButton = styled.TouchableOpacity`
 `
 const StyledView = styled.ImageBackground`
   flex: 1;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   resizeMode: stretch;
   background-color: #222;
@@ -68,10 +68,10 @@ const StyledView = styled.ImageBackground`
 
 const LogoContainer = styled.View`
     align-items: center;
-    top: -220px;
 `
 const Logo = styled.Text`
     color: #fff;
-    font-size: 50px;
+    font-size: 48px;
     font-weight: 500;
+    margin-bottom: 30px;
 `

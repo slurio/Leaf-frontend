@@ -36,7 +36,6 @@ const StyledBottomView = styled.View`
     flex: 1;
     justifyContent: center;
     alignItems: center;
-    margin-top: 5px;
 `
 
 const StyledButtonContatiner = styled.TouchableOpacity`
@@ -45,7 +44,7 @@ const StyledButtonContatiner = styled.TouchableOpacity`
     height: 50px;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 6px;
     background-color: black;
 `
 
