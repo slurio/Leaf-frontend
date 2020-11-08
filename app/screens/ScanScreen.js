@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components/native'
-import { Alert, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
+import { ActivityIndicator,Text } from 'react-native';
+
+import { FancyAlert } from 'react-native-expo-fancy-alerts';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { HOST_WITH_PORT, API_KEY } from '../environment';
 import { ScrollView } from 'react-native-gesture-handler';
-
-//reduntant but for back image pass front image information along to additional camera screen and pass both results back to here
-// add function to read back results ?
-// pass both results to backend / have conditional to check if back image is there to send to back?
 
 function ScanScreen({navigation, route}) {
     const[frontImg, setFrontImg] = useState('')
     const[backImg, setBackImg] = useState('')
     const [clothingDescription, setClothingDescription] = useState('')
     const [appReady, setAppReady] = useState(true)
-   
+    const [modalVisible, setModalVisibility] = useState(false)
+
     let screenWidth = Dimensions.get('window').width;
-    let screenHeight = Dimensions.get('window').height;
 
     useEffect(() => {
       if(route.params){
@@ -27,25 +26,30 @@ function ScanScreen({navigation, route}) {
     },[])
 
     const handleSubmit = () => {
-      setAppReady(false)
-      fetch("https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY, {
-        method: 'POST',
-        body: JSON.stringify({
-          "requests": [{
-          "image": { "content": frontImg.base64},
-          "features": [
-            { "type": "TEXT_DETECTION" }
-            ]
-          }]
+      if(frontImg) {
+        setAppReady(false)
+        fetch("https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY, {
+          method: 'POST',
+          body: JSON.stringify({
+            "requests": [{
+            "image": { "content": frontImg.base64},
+            "features": [
+              { "type": "TEXT_DETECTION" }
+              ]
+            }]
+          })
         })
-      })
-      .then(response => { return response.json()})
-      .then(jsonRes => {
-        let text = jsonRes.responses[0].fullTextAnnotation.text
-        backImg ? fetchBackTagText(text): renderTagText(text, false)
-      }).catch(err => {
-        console.log('Error', err)
-      })
+        .then(response => { return response.json()})
+        .then(jsonRes => {
+          let text = jsonRes.responses[0].fullTextAnnotation.text
+          backImg ? fetchBackTagText(text): renderTagText(text, false)
+        }).catch(err => {
+          console.log('Error', err)
+        })
+      } else {
+        console.log('HERE')
+        setModalVisibility(true) 
+      }
     }
 
     const fetchBackTagText = (frontTagText) => {
@@ -141,9 +145,24 @@ function ScanScreen({navigation, route}) {
         </ViewContatiner> 
         :<LogoContainer style={{width: screenWidth, height: 750}}>
           <LogoImage source={require('../assets/whitethreadlogo.png')}/> 
-          <Logo>threading your results...</Logo>
+          <Logo>threading your results</Logo>
+          <ActivityIndicator style={{marginTop:20}} size="large" color="white" />
         </LogoContainer>
         }
+        {modalVisible ?     
+          <FancyAlert
+            visible={modalVisible}
+            icon={<Circle><Text><MaterialCommunityIcons name="alpha-x" color='black' size={50} /></Text></Circle>}
+            style={{ backgroundColor: 'black' }}
+          >
+            <ModalText>Must submit front tag image</ModalText>
+            <ButtonContainer>
+              <RetakeButton onPress={() => setModalVisibility(false)}>
+                <RetakeButtonText>OK</RetakeButtonText>
+              </RetakeButton>
+            </ButtonContainer>
+          </FancyAlert>
+        : null}
       </ScrollView>        
     )
 }
@@ -171,7 +190,7 @@ const LogoContainer = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #222;
+  background-color: black;
 `
 const Logo = styled.Text`
   color: white;
@@ -253,4 +272,46 @@ const Instructions = styled.Text`
   font-size: 18px;
   text-decoration-line: underline;
   font-family: Raleway_400Regular;
+`
+
+
+
+
+const RetakeButtonText = styled.Text`
+  text-align: center;
+  color: #222;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Raleway_700Bold;
+`
+
+const RetakeButton = styled.TouchableOpacity`
+  padding-top: 10px
+  margin-top: -5px;
+  margin-bottom: 20px;
+  background-color: white
+  width: 120px;
+  height: 40px;
+`
+
+const ButtonContainer = styled.View`
+  flex-direction: row;
+`
+const ModalText = styled.Text`
+  margin-top: -16px;
+  margin-bottom: 32px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Raleway_600SemiBold;
+`
+
+const Circle = styled.View`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 50px;
+  width: 100%;
 `

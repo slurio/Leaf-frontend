@@ -6,7 +6,7 @@ import { loginUser } from '../redux/action'
 
 import { HOST_WITH_PORT } from '../environment';
 
-function SignInScreen({navigation}, props) {
+function SignInScreen({navigation}) {
    const [userEmail,setUserEmail] = useState('')
    const [password,setPassword] = useState('')
 
@@ -15,6 +15,8 @@ function SignInScreen({navigation}, props) {
 
     useEffect(() => {
         if(user){
+            setUserEmail('')
+            setPassword('')
             navigation.navigate('HomeNav') 
         }
     })

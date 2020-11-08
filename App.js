@@ -32,7 +32,6 @@ import { Provider } from 'react-redux';
 import { deleteItem } from "./app/redux/action";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 const rootReducer = (currentState= {user:'', items: []}, action) => {
   if(action.type === "login user"){
     return {...currentState, user: action.payload, items: action.payload.items}
@@ -44,6 +43,13 @@ const rootReducer = (currentState= {user:'', items: []}, action) => {
     return {...currentState, items: [action.payload, ...currentState.items]}
   } else if(action.type === "delete item"){
     return {...currentState, items: action.payload}
+    // else if(action.type === "update item"){
+    //   array = [...currentState.items]
+    //   oldItem = array.find(item => item.id === action.payload.id)
+    //   index = array.indexOf(oldItem)
+    //   array[index] = action.payload
+    //   return{...currentState, items: array}
+    // }
   }else {
     return currentState
   }
@@ -111,6 +117,4 @@ export default function App() {
           </SafeAreaView>
         </Provider>
       )
-
-    
 }

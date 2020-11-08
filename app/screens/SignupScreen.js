@@ -17,6 +17,9 @@ function SignupScreen({ navigation }) {
 
     useEffect(() => {
         if(newUser){
+            setUsername('')
+            setPassword('')
+            setPasswordConfirmation('')
             navigation.navigate('HomeNav') 
         }
     })

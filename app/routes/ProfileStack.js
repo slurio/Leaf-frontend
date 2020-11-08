@@ -18,11 +18,11 @@ const Profile = ({navigation}) => {
     const countryArray = []
 
     items.map(item => {
-        countryArray.push(item['country_fact']['country'])
+        countryArray.push(item['country_fact']['country'].toUpperCase())
         item['item_fiber_facts'].map(fiber => {
             fiber['fiber_fact']['natural_fiber'] ?
-            naturalFiberArray.push(fiber['fiber_fact']['name'])
-            : syntheticFiberArray.push(fiber['fiber_fact']['name'])
+            naturalFiberArray.push(fiber['fiber_fact']['name'].toUpperCase())
+            : syntheticFiberArray.push(fiber['fiber_fact']['name'].toUpperCase())
         })
     })
 
@@ -83,14 +83,14 @@ const Profile = ({navigation}) => {
            <View style={{margin: 20, marginLeft: -2,marginRight: -2, marginBottom:10}}>
             <TopContainer>
                 <UserContainer>
-                    <UserText>Logged in as {username.toUpperCase()}</UserText>
+                    <UserText>Logged in as <UsernameText>{username === undefined ? null : username.toUpperCase()}</UsernameText></UserText>
                 </UserContainer>
                     <LogOutButton onPress={() => logOutUser()}>
                         <LogOutText>Log Out</LogOutText>
                     </LogOutButton>
             </TopContainer>
                 <View style={{marginLeft: 20, marginRight:20}}>
-                    <ProfileGreeting>Your closet overview to see how much natural and synthetic fibers make up your closet along with your clothing origins. </ProfileGreeting>
+                    <ProfileGreeting>Your closet overview, see how much natural and synthetic fibers make up your closet along with your clothing origins. </ProfileGreeting>
                 </View>
             </View>
             <View style={{flex:1, alignItems:'center'}}>
@@ -101,8 +101,9 @@ const Profile = ({navigation}) => {
                         <VictoryPie
                             data= {naturalGraphData}
                             colorScale={naturalGraphColors}
+                            labelRadius={130}
                             height={320}
-                            style={{labels:{fontSize: 18, fill: 'black'},parent:{alignItems:'center', marginRight: 18}}}
+                            style={{labels:{fontSize: 14, fill: 'black'},parent:{alignItems:'center', marginRight: 18}}}
                         />
                     </View>
                 </TopChartContainer>
@@ -112,7 +113,8 @@ const Profile = ({navigation}) => {
                         data= {syntheticGraphData}
                         colorScale={syntheticGraphColors}
                         height={320}
-                        style={{labels:{fontSize: 18, fill: 'white'},parent:{marginBottom:30}}}
+                        labelRadius={125}
+                        style={{labels:{fontSize: 14, fill: 'white'},parent:{marginBottom:30}}}
                     />
                 </BottomChartContainter>
                 <CountryChartContainer>
@@ -120,8 +122,9 @@ const Profile = ({navigation}) => {
                     <VictoryPie
                         data= {countryGraphyData}
                         colorScale={countryGraphColors}
+                        labelRadius={125}
                         height={320}
-                        style={{labels:{fontSize: 18, fill: 'black'}}}
+                        style={{labels:{fontSize: 14, fill: 'black'}}}
                     />
                 </CountryChartContainer>
             </View>
@@ -143,6 +146,7 @@ const NaturalTitle = styled.Text`
 const SyntheticTitle = styled.Text`
     text-align: center;
     color: white;
+    margin-bottom: 10px;
     font-size: 24px;
     font-family: Raleway_700Bold;
 `
@@ -160,14 +164,14 @@ const CountryChartContainer = styled.View`
     background-color: #fff;
     width: 420px;
     padding-top: 10px;
-    margin-bottom:10px;
+    margin-bottom:-6px;
     align-items: center;
 `
 
 const CountryTitle = styled.Text`
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 24px;
     font-family: Raleway_700Bold;
     color: #222;
@@ -196,7 +200,14 @@ const UserContainer = styled.View`
 const UserText = styled.Text`
     color: #222;
     font-size: 16px;
+    font-family: Raleway_600SemiBold;
+`
+
+const UsernameText = styled.Text`
+    color: #222;
+    font-size: 18px;
     font-family: Raleway_700Bold;
+    letter-spacing: 2px;
 `
 
 const LogOutButton = styled.TouchableOpacity`

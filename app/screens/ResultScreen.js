@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
-import { ScrollView, Image} from 'react-native';
+import { View, ScrollView, Image} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -17,7 +17,7 @@ function ResultScreen({route}) {
     const [favorite, setFavorite] = useState(false)
     const country = route.params[0].country_data[0] ? route.params[0].country_data[0].country : false
     const country_data = route.params[0].country_data[0] ? route.params[0].country_data[0].description : false
-    const fibers = route.params[0].fibers_data ? route.params[0].fibers_data : false
+    const fibers = route.params[0].fibers_data ? route.params[0].fibers_data : false    
     const clothingDescription = route.params[1].description ? route.params[1].description : 'Item'+ Math.floor(Math.random()*(999-100+1)+100).toString()
 
     const user = useSelector(state => state.user);
@@ -55,8 +55,9 @@ function ResultScreen({route}) {
     }
 
     const renderCareInstruction = () => {
-      return fibers.map(fiber => <CareInstruction key={fiber.fiber.id} fiber={fiber.fiber}/>)
+        return fibers.map(fiber => <CareInstruction key={fiber.fiber.id} fiber={fiber.fiber}/>)
     }
+
 
     const renderImage = () => {
       switch(country){
@@ -88,6 +89,14 @@ function ResultScreen({route}) {
         return <Image 
                 style={{width: 150, height: 150}}
                 source={require('../assets/countries/Vietnam.png')}/>;
+      case('Honduras'):
+      return <Image 
+              style={{width: 240, height: 130}}
+              source={require('../assets/countries/Honduras.png')}/>;
+      case('Poland'):
+        return <Image 
+                style={{width: 170, height: 150}}
+                source={require('../assets/countries/Poland.png')}/>;          
       default:
         return <NoResultText>No Country Image found for your result</NoResultText>
     }}
@@ -117,11 +126,14 @@ function ResultScreen({route}) {
               <FiberTitle>Fiber Content</FiberTitle>
               {fibers ? renderFibers() : <NoResultText>No Results</NoResultText>}
             </FiberBorderLine>
-            <CareTitle>Care Instructions</CareTitle>
-            {fibers? renderCareInstruction() : <NoResultText>No Results</NoResultText>}
+             <View>   
+              <CareTitle>Care Instructions</CareTitle>
+            {fibers? 
+              renderCareInstruction()
+            : <NoResultText>No Results</NoResultText>}
+            </View>
           </BottomContainer>
-        </ScrollView>
-        
+        </ScrollView>   
     )
 }
 

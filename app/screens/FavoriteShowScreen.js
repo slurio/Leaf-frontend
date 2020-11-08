@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import { ScrollView, Image, TouchableOpacity, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,13 +11,14 @@ import { HOST_WITH_PORT } from '../environment';
 import Fiber from '../components/Fiber'
 import CareInstruction from '../components/CareInstruction';
 
+
 const FavoriteShowScreen = ({navigation, route}) => {
   const dispatch = useDispatch();
 
     const renderFibers = () => {
         return route.params['item_fiber_facts'].map(fiber => <Fiber key={fiber.id} fiber={fiber['fiber_fact']} percentage={fiber['percentage']}/>)
     }
-  
+    
     const renderCareInstruction = () => {
         return route.params['item_fiber_facts'].map(fiber => <CareInstruction key={fiber.id} fiber={fiber['fiber_fact']}/>)
     }
@@ -52,11 +53,19 @@ const FavoriteShowScreen = ({navigation, route}) => {
         return <Image 
                 style={{width: 150, height: 150}}
                 source={require('../assets/countries/Vietnam.png')}/>;
+      case('Honduras'):
+      return <Image 
+              style={{width: 240, height: 130}}
+              source={require('../assets/countries/Honduras.png')}/>;
+      case('Poland'):
+        return <Image 
+                style={{width: 170, height: 150}}
+                source={require('../assets/countries/Poland.png')}/>;          
+      default:
+        return <NoResultText>No Country Image found for your result</NoResultText>         
     }}
 
     const removeItem = () => {
-      console.log('delete', route.params.id)
-
       let itemId = route.params.id
 
       let options = {
@@ -96,14 +105,11 @@ const FavoriteShowScreen = ({navigation, route}) => {
             <FiberTitle>Fiber Content</FiberTitle>
             {renderFibers()}
           </FiberBorderLine>
-          
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>   
-            <CareTitle>Care Instructions</CareTitle>
-            <TouchableOpacity onPress={() => console.log('edit')}>
-              <MaterialCommunityIcons style={{marginRight:20}}name="pencil-outline" color='#222' size={35} />
-            </TouchableOpacity>
-          </View>
-          {renderCareInstruction()}
+
+            <View >   
+              <CareTitle>Care Instructions</CareTitle>
+              {renderCareInstruction()}
+            </View>
         </BottomContainer>
       </ScrollView>
     )

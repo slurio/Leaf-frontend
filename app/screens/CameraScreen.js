@@ -49,7 +49,7 @@ function CameraScreen({navigation, route}) {
           <FancyAlert
             visible={modalVisible}
             icon={<Circle><Text><MaterialCommunityIcons name="check" color='white' size={40} /></Text></Circle>}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: 'white'}}
           >
             <ModalText>IMAGE SUCCESS!</ModalText>
             <ButtonContainer>
