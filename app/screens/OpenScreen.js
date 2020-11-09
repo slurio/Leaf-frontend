@@ -21,8 +21,8 @@ function OpenScreen({ navigation }) {
 export default OpenScreen;
 
 const LogoImage = styled.Image`
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     margin-bottom: 15px;
 `
 
@@ -71,7 +71,7 @@ const LogoContainer = styled.View`
 `
 const Logo = styled.Text`
     color: #fff;
-    font-size: 48px;
+    font-size: 44px;
     font-weight: 500;
     margin-bottom: 30px;
 `

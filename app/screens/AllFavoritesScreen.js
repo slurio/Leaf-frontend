@@ -30,7 +30,6 @@ const AllFavoritesScreen = ({navigation}) => {
     
     return(
        <StyledView>
-           <StyledTitle>Your Closet</StyledTitle>
            <SearchBar>
                 <MaterialCommunityIcons style={{position: 'absolute', alignItems: 'center', top: 10, zIndex:1, top:5, marginLeft:5}} name="magnify" color='#fff' size={26} />
                 <StyledInput
@@ -52,7 +51,6 @@ const AllFavoritesScreen = ({navigation}) => {
 export default AllFavoritesScreen;
 
 const SearchBar = styled.View`
-    margin-top: 15px;
     flex: 1;
     flex-direction: row;
 `
@@ -73,13 +71,6 @@ const StyledText = styled.Text`
 const StyledView = styled.View`
     margin: 30px;
 ` 
-
-const StyledTitle = styled.Text`
-    font-size: 28px;
-    font-family: Raleway_700Bold;
-    color: #222;
-    padding-bottom: 10px;
-`
 
 const StyledFlatList = styled.FlatList`
     margin-top: 55px;

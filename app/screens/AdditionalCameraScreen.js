@@ -38,6 +38,9 @@ function AdditionalCameraScreen({navigation, route}) {
       <Camera style={{ flex: 1 }} type={type} ref={ref => {
         setCameraRef(ref) ;
       }}>
+        <TouchableOpacity onPress={()=> navigation.navigate('ScanScreen')}>
+          <MaterialCommunityIcons style={{marginTop: 10}} name="chevron-left" color='white' size={75} />
+        </TouchableOpacity>
         <SafeAreaView
           style={{
             flex: 1,

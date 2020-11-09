@@ -42,14 +42,11 @@ const rootReducer = (currentState= {user:'', items: []}, action) => {
   }else if(action.type === "favorite item"){
     return {...currentState, items: [action.payload, ...currentState.items]}
   } else if(action.type === "delete item"){
-    return {...currentState, items: action.payload}
-    // else if(action.type === "update item"){
-    //   array = [...currentState.items]
-    //   oldItem = array.find(item => item.id === action.payload.id)
-    //   index = array.indexOf(oldItem)
-    //   array[index] = action.payload
-    //   return{...currentState, items: array}
-    // }
+      array = [...currentState.items]
+      deletedItem = array.find(item => item.id === action.payload.id)
+      index = array.indexOf(deletedItem)
+      array.splice(index, 1)
+      return{...currentState, items: array}
   }else {
     return currentState
   }
@@ -86,30 +83,31 @@ export default function App() {
         <Provider store={store}>
           <SafeAreaView style={{ flex: 1, backgroundColor:'#fff'}}>
              <NavigationContainer>
-              <Stack.Navigator headerMode={'float'}>
+              <Stack.Navigator headerMode={'none'}>
                 <Stack.Screen 
                   name="OpenScreen" 
                   component={OpenScreen}
                   options={{headerShown: false}}
                 />
-                <Stack.Screen name="HomeNav" component={HomeNav}
-                  options={{
-                  title: 'THE THREAD',
-                  headerLeft: null,
-                  headerStyle: {
-                    backgroundColor: '#222',
-                    height: (Platform.OS === 'ios') ? 70 : 0,
-                    elevation: 0,
-                    shadowOpacity: 0,
-                    borderBottomWidth: 0,
-                  },
-                  headerTintColor: '#fff',
-                  headerTitleStyle: {
-                    fontSize: 25,
-                    letterSpacing: 2,
-                  },
-                  headerBackTitleVisible: false,
-                }}/>
+                <Stack.Screen name="HomeNav" component={HomeNav} option={{headerShown: false}}
+                //   options={{
+                //   // title: 'THE THREAD',
+                //   // headerLeft: null,
+                //   headerStyle: {
+                //     backgroundColor: '#222',
+                //     height: (Platform.OS === 'ios') ? 70 : 0,
+                //     elevation: 0,
+                //     shadowOpacity: 0,
+                //     borderBottomWidth: 0,
+                //   },
+                //   headerTintColor: '#fff',
+                //   headerTitleStyle: {
+                //     fontSize: 25,
+                //     letterSpacing: 2,
+                //   },
+                //   headerBackTitleVisible: false,
+                // }}/>
+                />
                 <Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown: false}}/>
                 <Stack.Screen name="SignupScreen" component={SignupScreen} options={{headerShown: false}}/>
               </Stack.Navigator>

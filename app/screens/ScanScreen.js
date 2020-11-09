@@ -15,6 +15,7 @@ function ScanScreen({navigation, route}) {
     const [clothingDescription, setClothingDescription] = useState('')
     const [appReady, setAppReady] = useState(true)
     const [modalVisible, setModalVisibility] = useState(false)
+    const [error, setError] = useState(false)
 
     let screenWidth = Dimensions.get('window').width;
 
@@ -44,10 +45,10 @@ function ScanScreen({navigation, route}) {
           let text = jsonRes.responses[0].fullTextAnnotation.text
           backImg ? fetchBackTagText(text): renderTagText(text, false)
         }).catch(err => {
-          console.log('Error', err)
+          console.log('ERROR :', err)
+          setError(true)
         })
       } else {
-        console.log('HERE')
         setModalVisibility(true) 
       }
     }
@@ -74,8 +75,7 @@ function ScanScreen({navigation, route}) {
       })
     }
 
-    const renderTagText = (text, backText) => {
-      
+    const renderTagText = (text, backText) => { 
       (backText) ?
         tagObj = {
           front_tag_img: text,
@@ -97,7 +97,12 @@ function ScanScreen({navigation, route}) {
 
       fetch(`${HOST_WITH_PORT}/items/`, options)
       .then(resp => resp.json())
-      .then(itemData => navigation.push('ResultScreen', [itemData, {description: clothingDescription}]))
+      .then(itemData => {
+        navigation.push('ResultScreen', [itemData, {description: clothingDescription}])
+        setAppReady(true)
+        setFrontImg('')
+        setBackImg('')
+      })
     }
        
     return(
@@ -152,7 +157,7 @@ function ScanScreen({navigation, route}) {
         {modalVisible ?     
           <FancyAlert
             visible={modalVisible}
-            icon={<Circle><Text><MaterialCommunityIcons name="alpha-x" color='black' size={50} /></Text></Circle>}
+            icon={<Circle><Text><MaterialCommunityIcons name="close" color='black' size={45} /></Text></Circle>}
             style={{ backgroundColor: 'black' }}
           >
             <ModalText>Must submit front tag image</ModalText>
@@ -160,6 +165,26 @@ function ScanScreen({navigation, route}) {
               <RetakeButton onPress={() => setModalVisibility(false)}>
                 <RetakeButtonText>OK</RetakeButtonText>
               </RetakeButton>
+            </ButtonContainer>
+          </FancyAlert>
+        : null}
+
+        {error ?     
+          <FancyAlert
+            visible={error}
+            icon={<ErrorCircle><Text><MaterialCommunityIcons name="close" color='white' size={45} /></Text></ErrorCircle>}
+            style={{ backgroundColor: 'white' }}
+          >
+            <ModalErrorText>No Text Detected</ModalErrorText>
+            <ButtonContainer>
+              <OkayButton onPress={() => {
+                setError(false)
+                setAppReady(true)
+                setFrontImg('')
+                setBackImg('')
+              }}>
+                <OkayButtonText>OK</OkayButtonText>
+              </OkayButton>
             </ButtonContainer>
           </FancyAlert>
         : null}
@@ -173,6 +198,34 @@ const MarginSpace = styled.Text`
   margin-bottom: 10px;
 `
 
+const ErrorCircle = styled.View`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 50px;
+  width: 100%;
+`
+
+const OkayButtonText = styled.Text`
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: Raleway_700Bold;
+`
+
+const OkayButton = styled.TouchableOpacity`
+  margin-right: 10px;
+  margin-top: -5px;
+  padding-top: 10px;
+  margin-bottom: 20px;
+  background-color: black;
+  width: 120px;
+  height: 40px;
+`
+
 const BottomBorderLine = styled.View`
   border-bottom-width: .5px;
   border-bottom-color: grey;
@@ -183,7 +236,7 @@ const BottomBorderLine = styled.View`
 const LogoImage = styled.Image`
   width: 100px;
   height: 100px;
-  margin-top: 30px;
+  margin-top: 60px;
 `
 
 const LogoContainer = styled.View`
@@ -274,9 +327,6 @@ const Instructions = styled.Text`
   font-family: Raleway_400Regular;
 `
 
-
-
-
 const RetakeButtonText = styled.Text`
   text-align: center;
   color: #222;
@@ -297,10 +347,20 @@ const RetakeButton = styled.TouchableOpacity`
 const ButtonContainer = styled.View`
   flex-direction: row;
 `
+
 const ModalText = styled.Text`
   margin-top: -16px;
   margin-bottom: 32px;
   color: white;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: Raleway_600SemiBold;
+`
+
+const ModalErrorText = styled.Text`
+  margin-top: -18px;
+  margin-bottom: 32px;
+  color: black;
   font-weight: bold;
   font-size: 20px;
   font-family: Raleway_600SemiBold;

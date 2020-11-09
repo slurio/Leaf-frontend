@@ -3,10 +3,11 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Home from '../screens/Home';
+// import Home from '../screens/Home';
+import HomeStack from './HomeStack';
 import FavoriteStack from './FavoriteStack';
 import ScanStack from './ScanStack';
-import Profile from './ProfileStack';
+import ProfileStack from './ProfileStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -21,7 +22,7 @@ export default function HomeNav() {
         >
             <Tab.Screen 
                 name="Home"
-                component={Home}
+                component={HomeStack}
                 options={{
                     tabBarLabel: 'Home',
                     tabBarIcon: () => (
@@ -51,7 +52,7 @@ export default function HomeNav() {
             />
             <Tab.Screen 
                 name="Profile"
-                component={Profile}
+                component={ProfileStack}
                 options={{
                     tabBarLabel: 'Profile',
                     tabBarIcon: () => (

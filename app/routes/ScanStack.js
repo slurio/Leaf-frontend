@@ -14,12 +14,76 @@ const Stack = createStackNavigator();
 const ScanStack = () => {
     return (
         <StyledView>
-            <Stack.Navigator headerMode={"none"}>
-              <Stack.Screen name="ScanScreen" component={ScanScreen}/>
-              <Stack.Screen name="InstructionScreen" component={InstructionScreen}/>
-              <Stack.Screen name="CameraScreen" component={CameraScreen}/>
-              <Stack.Screen name="AdditionalCameraScreen" component={AdditionalCameraScreen} />
-              <Stack.Screen name="ResultScreen" component={ResultScreen} />
+            <Stack.Navigator headerMode={"float"}>
+              <Stack.Screen name="ScanScreen" component={ScanScreen}
+               options={{
+                title: 'Scan',
+                headerLeft: null,
+                headerStyle: {
+                  backgroundColor: '#222',
+                  height: (Platform.OS === 'ios') ? 70 : 0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                },
+                headerTintColor: '#fff',
+                headerTitleStyle: {
+                  fontFamily: 'Raleway_500Medium',
+                  fontSize: 22,
+                  letterSpacing: 2,
+                },
+                headerBackTitleVisible: false,
+              }}/>
+              <Stack.Screen name="InstructionScreen" component={InstructionScreen}
+               options={{
+                title: '',
+                headerStyle: {
+                  backgroundColor: '#222',
+                  height: (Platform.OS === 'ios') ? 70 : 0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                },
+                headerTintColor: '#fff',
+                headerBackTitleVisible: false,
+              }}/>
+              <Stack.Screen name="CameraScreen" component={CameraScreen}
+               options={{
+                headerLeft: null,
+                headerStyle: {
+                  backgroundColor: '#222',
+                  height:  0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                },
+                headerTintColor: '#fff',
+              }}/>
+              <Stack.Screen name="AdditionalCameraScreen" component={AdditionalCameraScreen}
+              options={{
+                headerLeft: null,
+                headerStyle: {
+                  backgroundColor: '#222',
+                  height:  0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                },
+                headerTintColor: '#fff',
+              }}/>
+              <Stack.Screen name="ResultScreen" component={ResultScreen}
+              options={{
+                title: '',
+                headerStyle: {
+                  backgroundColor: '#222',
+                  height: (Platform.OS === 'ios') ? 70 : 0,
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                },
+                headerTintColor: '#fff',
+                headerBackTitleVisible: false,
+              }}/>
             </Stack.Navigator>
         </StyledView>
     );
