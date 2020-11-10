@@ -54,7 +54,6 @@ function ScanScreen({navigation, route}) {
     }
 
     const fetchBackTagText = (frontTagText) => {
-      console.log('here')
       fetch("https://vision.googleapis.com/v1/images:annotate?key=" + API_KEY, {
         method: 'POST',
         body: JSON.stringify({

@@ -46,7 +46,7 @@ const Profile = ({navigation}) => {
         syntheticGraphData.push({x: key, y: value})
     }
 
-    let countryData = countryArray.reduce(function(obj,b){
+    let countryData = countryArray.sort().reduce(function(obj,b){
         obj[b] = ++ obj[b] || 1
         return obj
     }, {})
@@ -102,7 +102,7 @@ const Profile = ({navigation}) => {
                             colorScale={naturalGraphColors}
                             labelRadius={130}
                             height={320}
-                            style={{labels:{fontSize: 14, fill: 'black'},parent:{alignItems:'center', marginRight: 18}}}
+                            style={{labels:{fontSize: 14, fill: 'black'},parent:{alignItems:'center', marginLeft: 6}}}
                         />
                 </TopChartContainer>
                 <BottomChartContainter>
@@ -111,8 +111,8 @@ const Profile = ({navigation}) => {
                         data= {syntheticGraphData}
                         colorScale={syntheticGraphColors}
                         height={320}
-                        labelRadius={125}
-                        style={{labels:{fontSize: 14, fill: 'white'},parent:{marginBottom:30}}}
+                        labelRadius={128}
+                        style={{labels:{fontSize: 14, fill: 'white'},parent:{marginBottom:30, marginLeft:10}}}
                     />
                 </BottomChartContainter>
                 <CountryChartContainer>
@@ -120,7 +120,7 @@ const Profile = ({navigation}) => {
                     <VictoryPie
                         data= {countryGraphyData}
                         colorScale={countryGraphColors}
-                        labelRadius={125}
+                        labelRadius={130}
                         height={320}
                         style={{labels:{fontSize: 14, fill: 'black'}}}
                     />
@@ -162,14 +162,14 @@ const CountryChartContainer = styled.View`
     background-color: #fff;
     width: 420px;
     padding-top: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 30px;
     align-items: center;
 `
 
 const CountryTitle = styled.Text`
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 15px;
+    margin-bottom: 16px;
     font-size: 24px;
     font-family: Raleway_700Bold;
     color: #222;
