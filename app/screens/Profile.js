@@ -36,7 +36,7 @@ const Profile = ({navigation}) => {
         naturalGraphData.push({x: key, y: value})
     }
 
-    let syntheticFiberyData = syntheticFiberArray.reduce(function(obj,b){
+    let syntheticFiberyData = syntheticFiberArray.sort().reduce(function(obj,b){
         obj[b] = ++ obj[b] || 1
         return obj
     }, {})
@@ -111,8 +111,8 @@ const Profile = ({navigation}) => {
                         data= {syntheticGraphData}
                         colorScale={syntheticGraphColors}
                         height={320}
-                        labelRadius={128}
-                        style={{labels:{fontSize: 14, fill: 'white'},parent:{marginBottom:30, marginLeft:10}}}
+                        labelRadius={130}
+                        style={{labels:{fontSize: 14, fill: 'white'},parent:{marginBottom:30, marginRight:-4}}}
                     />
                 </BottomChartContainter>
                 <CountryChartContainer>
