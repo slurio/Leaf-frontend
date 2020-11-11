@@ -1,11 +1,11 @@
-import "react-native-gesture-handler";
-import React, {useState} from "react";
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { AppLoading, Font } from 'expo';
-import { useFonts,   Raleway_100Thin,
+import { AppLoading } from 'expo';
+import { useFonts,   
+  Raleway_100Thin,
   Raleway_100Thin_Italic,
   Raleway_200ExtraLight,
   Raleway_200ExtraLight_Italic,
@@ -18,9 +18,6 @@ import { useFonts,   Raleway_100Thin,
   Raleway_600SemiBold,
   Raleway_600SemiBold_Italic,
   Raleway_700Bold, } from '@expo-google-fonts/raleway';
-  import { NunitoSans_600SemiBold } from '@expo-google-fonts/nunito-sans'
-
-
 
 import HomeNav from "./app/routes/HomeNav";
 import OpenScreen from "./app/screens/OpenScreen";
@@ -29,8 +26,6 @@ import SignInScreen from "./app/screens/SignInScreen";
 
 import {createStore} from 'redux'; 
 import { Provider } from 'react-redux';
-import { deleteItem } from "./app/redux/action";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 const rootReducer = (currentState= {user:'', items: []}, action) => {
   if(action.type === "login user"){
@@ -54,7 +49,7 @@ const rootReducer = (currentState= {user:'', items: []}, action) => {
 
 const store = createStore(rootReducer) 
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 export default function App() {
 
@@ -71,48 +66,24 @@ export default function App() {
     Raleway_500Medium_Italic,
     Raleway_600SemiBold,
     Raleway_600SemiBold_Italic,
-    Raleway_700Bold,
-    NunitoSans_600SemiBold,
+    Raleway_700Bold,  
   });
 
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
-      return (
-        <Provider store={store}>
-          <SafeAreaView style={{ flex: 1, backgroundColor:'#fff'}}>
-             <NavigationContainer>
-              <Stack.Navigator headerMode={'none'}>
-                <Stack.Screen 
-                  name="OpenScreen" 
-                  component={OpenScreen}
-                  options={{headerShown: false}}
-                />
-                <Stack.Screen name="HomeNav" component={HomeNav} option={{headerShown: false}}
-                //   options={{
-                //   // title: 'THE THREAD',
-                //   // headerLeft: null,
-                //   headerStyle: {
-                //     backgroundColor: '#222',
-                //     height: (Platform.OS === 'ios') ? 70 : 0,
-                //     elevation: 0,
-                //     shadowOpacity: 0,
-                //     borderBottomWidth: 0,
-                //   },
-                //   headerTintColor: '#fff',
-                //   headerTitleStyle: {
-                //     fontSize: 25,
-                //     letterSpacing: 2,
-                //   },
-                //   headerBackTitleVisible: false,
-                // }}/>
-                />
-                <Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown: false}}/>
-                <Stack.Screen name="SignupScreen" component={SignupScreen} options={{headerShown: false}}/>
-              </Stack.Navigator>
-            </NavigationContainer> 
-          </SafeAreaView>
-        </Provider>
-      )
+  return (
+    <Provider store={store}>
+      <SafeAreaView style={{ flex: 1, backgroundColor:'#fff'}}>
+        <NavigationContainer>
+          <Stack.Navigator headerMode={'none'}>
+            <Stack.Screen name="OpenScreen" component={OpenScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="HomeNav" component={HomeNav} option={{headerShown: false}}/>
+            <Stack.Screen name="SignInScreen" component={SignInScreen} options={{headerShown: false}}/>
+            <Stack.Screen name="SignupScreen" component={SignupScreen} options={{headerShown: false}}/>
+          </Stack.Navigator>
+        </NavigationContainer> 
+      </SafeAreaView>
+    </Provider>
+  )
 }

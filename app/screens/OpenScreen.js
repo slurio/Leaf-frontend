@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components/native'
+import React from 'react';
+import styled from 'styled-components/native';
 
 function OpenScreen({ navigation }) {  
     return(
@@ -50,6 +50,7 @@ const LogInButton = styled.TouchableOpacity`
     border-radius: 10px;
     margin-bottom: 20px;
 `
+
 const SignUpButton = styled.TouchableOpacity`
     width: 160px;
     height: 45px;
@@ -58,6 +59,7 @@ const SignUpButton = styled.TouchableOpacity`
     border-radius: 10px;
     border: 2px solid #fff;
 `
+
 const StyledView = styled.ImageBackground`
   flex: 1;
   justify-content: center;
@@ -69,6 +71,7 @@ const StyledView = styled.ImageBackground`
 const LogoContainer = styled.View`
     align-items: center;
 `
+
 const Logo = styled.Text`
     color: #fff;
     font-size: 44px;

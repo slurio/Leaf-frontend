@@ -3,7 +3,6 @@ import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-// import Home from '../screens/Home';
 import HomeStack from './HomeStack';
 import FavoriteStack from './FavoriteStack';
 import ScanStack from './ScanStack';
@@ -11,7 +10,7 @@ import ProfileStack from './ProfileStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
-export default function HomeNav() {
+function HomeNav() {
     return(
         <Tab.Navigator
             initialRouteName="Home"
@@ -64,4 +63,5 @@ export default function HomeNav() {
     )
 }
 
+export default HomeNav;
 

@@ -1,9 +1,12 @@
 import React, {useState}from 'react';
 import styled from 'styled-components/native';
-import { useSelector } from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { useSelector } from 'react-redux';
+
 const AllFavoritesScreen = ({navigation}) => {
+    const [searchFilterItems, setSearchFilterItems] = useState('')
+    const [searchTerm, setSearchTerm] = useState('')
     const itemData = useSelector(state => state.items.sort())
     const alphabetizeItems = itemData.sort(function(a,b){
         if(a.title < b.title) { return -1; }
@@ -11,8 +14,6 @@ const AllFavoritesScreen = ({navigation}) => {
         return 0;
     })
 
-    const [searchFilterItems, setSearchFilterItems] = useState('')
-    const [searchTerm, setSearchTerm] = useState('')
 
     const renderItem = ({item}) => {
         return(
@@ -44,7 +45,7 @@ const AllFavoritesScreen = ({navigation}) => {
             renderItem={renderItem}
             keyExtractor={item => item.id.toString()}
             />
-       </StyledView>
+        </StyledView>
     )
 }
 
@@ -54,6 +55,7 @@ const SearchBar = styled.View`
     flex: 1;
     flex-direction: row;
 `
+
 const StyledTouchableOpacity = styled.TouchableOpacity`
     border-bottom-width: .5px;
     border-bottom-color: lightgrey;

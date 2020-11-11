@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components/native';
-import { ScrollView, Image, View} from 'react-native'
+import { ScrollView, Image, View} from 'react-native';
 
-import {useSelector} from 'react-redux'
+import {useSelector} from 'react-redux';
 import { HOST_WITH_PORT } from '../environment';
 
 const Home = () => {
-    const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
     const [facts, setFacts] = useState([])
     const [randomFact,setRandomFact] = useState('')
+    const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
 
     useEffect(() => {
         fetch(`${HOST_WITH_PORT}/random_facts/`)

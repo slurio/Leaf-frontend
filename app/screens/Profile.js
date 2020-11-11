@@ -8,11 +8,10 @@ import { logOut } from '../redux/action';
 import { VictoryPie } from "victory-native";
 
 const Profile = ({navigation}) => {
-    const screenWidth = Math.round(Dimensions.get('window').width);
+    const screenWidth = Math.round(Dimensions.get('window').width)
     const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
     const items = useSelector(state => state.items)
-    const dispatch = useDispatch();
-
+    const dispatch = useDispatch()
     const naturalFiberArray = []
     const syntheticFiberArray = []
     const countryArray = []
@@ -96,14 +95,14 @@ const Profile = ({navigation}) => {
             <View style={{flex:1, alignItems:'center'}}>
                 <Image style={{width: screenWidth, height:250, marginTop:20}} source={require('../assets/Profile.jpg')}/>
                 <TopChartContainer>
-                        <NaturalTitle>NATURAL FIBERS</NaturalTitle>
-                        <VictoryPie
-                            data= {naturalGraphData}
-                            colorScale={naturalGraphColors}
-                            labelRadius={130}
-                            height={320}
-                            style={{labels:{fontSize: 14, fill: 'black'},parent:{alignItems:'center', marginLeft: 6}}}
-                        />
+                    <NaturalTitle>NATURAL FIBERS</NaturalTitle>
+                    <VictoryPie
+                        data= {naturalGraphData}
+                        colorScale={naturalGraphColors}
+                        labelRadius={130}
+                        height={320}
+                        style={{labels:{fontSize: 14, fill: 'black'},parent:{alignItems:'center', marginLeft: 6}}}
+                    />
                 </TopChartContainer>
                 <BottomChartContainter>
                     <SyntheticTitle>SYNTHETIC FIBERS</SyntheticTitle>
@@ -229,7 +228,3 @@ const TopContainer = styled.View`
     justify-content: center;
     align-items: center;
 `
-
-const StyledView = styled.View`
-
-` 

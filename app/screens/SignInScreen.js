@@ -1,15 +1,14 @@
-import React, {useState, useEffect} from 'react'
-import styled from 'styled-components/native'
+import React, {useState, useEffect} from 'react';
+import styled from 'styled-components/native';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { loginUser } from '../redux/action'
+import { loginUser } from '../redux/action';
 
 import { HOST_WITH_PORT } from '../environment';
 
 function SignInScreen({navigation}) {
-   const [userEmail,setUserEmail] = useState('')
-   const [password,setPassword] = useState('')
-
+    const [userEmail,setUserEmail] = useState('')
+    const [password,setPassword] = useState('')
     const user = useSelector(state => state.user)
     const dispatch = useDispatch()
 
@@ -21,64 +20,54 @@ function SignInScreen({navigation}) {
         }
     })
 
-    const renderPassword = (text) => {
-        setPassword(text)
-    }
-
-    const renderUser = (text) => {
-        setUserEmail(text)
-    }
-
     const submitHandler = () => {
         let userObj = {
             username: userEmail,
             password: password
         }
         let options={
-                method: "POST",
-                headers: {
-                    'content-type': 'application/json',
-                    'accept': 'application/json'
-                },
-                body: JSON.stringify(userObj)
-            }
-    
-            fetch(`${HOST_WITH_PORT}/users/`, options)
-            .then(resp=> resp.json())
-            .then(data => dispatch(loginUser(data)))
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify(userObj)
+        }
+        fetch(`${HOST_WITH_PORT}/users/`, options)
+        .then(resp=> resp.json())
+        .then(user => dispatch(loginUser(user)))
     } 
 
     return(
         <StyledView>
             <StyledContainer>
-
-            <Logo>THE THREAD</Logo>
-            <GreetingContainer>
-                <SignIn>Sign In</SignIn>
-                <Greeting>Hi there! Nice to see you again.</Greeting>
-            </GreetingContainer>
-            {user === false ? <Error>Password incorrect or no known user</Error> : null}
-             <StyledTextInput
-                placeholder="Email Address"
-                autoCapitalize = 'none'
-                placeholderTextColor="grey"
-                value={userEmail}
-                onChangeText={text => renderUser(text)}
-             />
-              <StyledTextInput
-                placeholder="Password"
-                placeholderTextColor="grey"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={text => renderPassword(text)}
-             />
-             <Container onPress={()=> submitHandler()}>
-                 <StyledButtonText>ENTER</StyledButtonText>
-            </Container>
-            <SignUpContainer>
-                <StyledText>Don't have an account?</StyledText>
-                <Link onPress={()=> navigation.navigate('SignupScreen')}>Sign Up</Link>
-            </SignUpContainer>
+                <Logo>THE THREAD</Logo>
+                <GreetingContainer>
+                    <SignIn>Sign In</SignIn>
+                    <Greeting>Hi there! Nice to see you again.</Greeting>
+                </GreetingContainer>
+                {user === false ? <Error>Password incorrect or no known user</Error> : null}
+                <StyledTextInput
+                    placeholder="Email Address"
+                    autoCapitalize = 'none'
+                    placeholderTextColor="grey"
+                    value={userEmail}
+                    onChangeText={text => setUserEmail(text)}
+                />
+                <StyledTextInput
+                    placeholder="Password"
+                    placeholderTextColor="grey"
+                    secureTextEntry={true}
+                    value={password}
+                    onChangeText={text => setPassword(text)}
+                />
+                <Container onPress={()=> submitHandler()}>
+                    <StyledButtonText>ENTER</StyledButtonText>
+                </Container>
+                <SignUpContainer>
+                    <StyledText>Don't have an account?</StyledText>
+                    <Link onPress={()=> navigation.navigate('SignupScreen')}>Sign Up</Link>
+                </SignUpContainer>
             </StyledContainer>
          </StyledView>
     )
@@ -96,6 +85,7 @@ const StyledContainer = styled.View`
     top: 100px;
     align-items: center;
 `
+
  const SignUpContainer = styled.View`
     margin-top: 15px;
     flex: 1;

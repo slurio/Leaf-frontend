@@ -9,23 +9,23 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 function AdditionalCameraScreen({navigation, route}) {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [cameraRef, setCameraRef] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+  const [hasPermission, setHasPermission] = useState(null)
+  const [cameraRef, setCameraRef] = useState(null)
+  const [type, setType] = useState(Camera.Constants.Type.back)
   const [modalVisible, setModalVisibility] = useState(false)
 
   useEffect(() => {
       (async () => {
-        const { status } = await Camera.requestPermissionsAsync();
-        setHasPermission(status === 'granted');
+        const { status } = await Camera.requestPermissionsAsync()
+        setHasPermission(status === 'granted')
       })();
   }, []);
       
   if (hasPermission === null) {
-      return <View />;
+      return <View />
   }
   if (hasPermission === false) {
-      return <Text>No access to camera</Text>;
+      return <Text>No access to camera</Text>
   }
 
   const renderResult = () => {
@@ -36,7 +36,7 @@ function AdditionalCameraScreen({navigation, route}) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Camera style={{ flex: 1 }} type={type} ref={ref => {
-        setCameraRef(ref) ;
+        setCameraRef(ref) 
       }}>
         <TouchableOpacity onPress={()=> navigation.navigate('ScanScreen')}>
           <MaterialCommunityIcons style={{marginTop: 10}} name="chevron-left" color='white' size={75} />
@@ -48,24 +48,23 @@ function AdditionalCameraScreen({navigation, route}) {
             justifyContent: 'flex-end'
           }}
         >
-        {modalVisible ?     
-          <FancyAlert
-            visible={modalVisible}
-            icon={<Circle><Text><MaterialCommunityIcons name="check" color='white' size={40} /></Text></Circle>}
-            style={{ backgroundColor: 'white' }}
-          >
-            <ModalText>IMAGE SUCCESS!</ModalText>
-            <ButtonContainer>
-              <ProceedButton onPress={() => renderResult()}>
-                <ProceedButtonText>PROCEED</ProceedButtonText>
-              </ProceedButton>
-              <RetakeButton onPress={() => setModalVisibility(false)}>
-                <RetakeButtonText>RETAKE</RetakeButtonText>
-              </RetakeButton>
-            </ButtonContainer>
-          </FancyAlert>
-        : null}
-
+          {modalVisible ?     
+            <FancyAlert
+              visible={modalVisible}
+              icon={<Circle><Text><MaterialCommunityIcons name="check" color='white' size={40} /></Text></Circle>}
+              style={{ backgroundColor: 'white' }}
+            >
+              <ModalText>IMAGE SUCCESS!</ModalText>
+              <ButtonContainer>
+                <ProceedButton onPress={() => renderResult()}>
+                  <ProceedButtonText>PROCEED</ProceedButtonText>
+                </ProceedButton>
+                <RetakeButton onPress={() => setModalVisibility(false)}>
+                  <RetakeButtonText>RETAKE</RetakeButtonText>
+                </RetakeButton>
+              </ButtonContainer>
+            </FancyAlert>
+          : null}
           <TouchableOpacity style={{alignSelf: 'center', marginBottom:20}} onPress={async() => {
             if(cameraRef){
               photo = await cameraRef.takePictureAsync({base64: true});
@@ -79,7 +78,7 @@ function AdditionalCameraScreen({navigation, route}) {
         </SafeAreaView>
       </Camera>
     </SafeAreaView>
-  );
+  )
 }
 
 export default AdditionalCameraScreen;

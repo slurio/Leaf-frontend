@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 function CareInstruction(props) {
     return(      
         <StyledView>
             <Instructions>
-                <EditFiber>{props.fiber.name.toUpperCase()} Care:</EditFiber> {props.fiber.care_instructions}
+                <Fiber>{props.fiber.name.toUpperCase()} Care:</Fiber> {props.fiber.care_instructions}
             </Instructions>
         </StyledView> 
     )
@@ -18,11 +18,6 @@ const StyledView = styled.View`
 `
 
 const Fiber = styled.Text`
-    font-size: 20px;
-    font-family: Raleway_600SemiBold;
-`
-
-const EditFiber = styled.Text`
     font-size: 20px;
     font-family: Raleway_600SemiBold;
 `

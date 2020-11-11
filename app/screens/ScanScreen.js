@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components/native'
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components/native';
 import { Dimensions } from 'react-native';
-import { ActivityIndicator,Text } from 'react-native';
+import { ActivityIndicator, Text, Image } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 import { FancyAlert } from 'react-native-expo-fancy-alerts';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { HOST_WITH_PORT, API_KEY } from '../environment';
-import { ScrollView } from 'react-native-gesture-handler';
 
 function ScanScreen({navigation, route}) {
     const[frontImg, setFrontImg] = useState('')
@@ -16,8 +16,7 @@ function ScanScreen({navigation, route}) {
     const [appReady, setAppReady] = useState(true)
     const [modalVisible, setModalVisibility] = useState(false)
     const [error, setError] = useState(false)
-
-    let screenWidth = Dimensions.get('window').width;
+    const screenWidth = Dimensions.get('window').width;
 
     useEffect(() => {
       if(route.params){
@@ -40,12 +39,11 @@ function ScanScreen({navigation, route}) {
             }]
           })
         })
-        .then(response => { return response.json()})
-        .then(jsonRes => {
-          let text = jsonRes.responses[0].fullTextAnnotation.text
+        .then(response => response.json())
+        .then(googleRes => {
+          let text = googleRes.responses[0].fullTextAnnotation.text
           backImg ? fetchBackTagText(text): renderTagText(text, false)
         }).catch(err => {
-          console.log('ERROR :', err)
           setError(true)
         })
       } else {
@@ -65,12 +63,12 @@ function ScanScreen({navigation, route}) {
           }]
         })
       })
-      .then(response => { return response.json()})
+      .then(response => response.json())
       .then(jsonRes => {
         let text = jsonRes.responses[0].fullTextAnnotation.text
         renderTagText(frontTagText, text)
       }).catch(err => {
-        console.log('Error', err)
+        setError(true)
       })
     }
 
@@ -84,7 +82,6 @@ function ScanScreen({navigation, route}) {
         tagObj = {
           front_tag_img: text
         }
-
       let options={
         method: "POST",
         headers: {
@@ -93,7 +90,6 @@ function ScanScreen({navigation, route}) {
         },
         body: JSON.stringify(tagObj)
       }
-
       fetch(`${HOST_WITH_PORT}/items/`, options)
       .then(resp => resp.json())
       .then(itemData => {
@@ -123,7 +119,7 @@ function ScanScreen({navigation, route}) {
           <ImageView>
             <StyledFrontLabel>FRONT TAG IMAGE</StyledFrontLabel>
             {frontImg ?
-              <Img 
+              <Image 
               style={{width: 290, height: 170}}
               source={{uri: `data:image/png;base64,${frontImg.base64}`}}/>
               :<ImageContainer onPress={()=> navigation.navigate('CameraScreen')}>
@@ -131,8 +127,8 @@ function ScanScreen({navigation, route}) {
               </ImageContainer>
             }
             <StyledFrontLabel>BACK TAG IMAGE</StyledFrontLabel>
-            { backImg ?
-              <Img 
+            {backImg ?
+              <Image
               style={{width: 290, height: 170}}
               source={{uri: `data:image/png;base64,${backImg.base64}`}}/>
             :
@@ -143,7 +139,7 @@ function ScanScreen({navigation, route}) {
               </ImageContainer>
             }
             <SubmitButton onPress={()=> handleSubmit()}>
-                <StyledText>Submit</StyledText>
+                <StyledText>SUBMIT</StyledText>
             </SubmitButton>
           </ImageView>  
         </ViewContatiner> 
@@ -167,7 +163,6 @@ function ScanScreen({navigation, route}) {
             </ButtonContainer>
           </FancyAlert>
         : null}
-
         {error ?     
           <FancyAlert
             visible={error}
@@ -244,6 +239,7 @@ const LogoContainer = styled.View`
   align-items: center;
   background-color: black;
 `
+
 const Logo = styled.Text`
   color: white;
   margin-top: 10px;
@@ -270,9 +266,6 @@ const ViewContatiner = styled.View`
   margin: 30px;
   margin-top: 6px;
   background-color: #fff;
-`
-
-const Img = styled.Image`
 `
 
 const ImageView = styled.View`
