@@ -27,4 +27,4 @@ Coming Soon...
 
 - Ruby on Rails
 - PostgreSQL
-- Active Model Seriazliers
+- Active Model Serializers
