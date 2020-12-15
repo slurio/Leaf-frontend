@@ -10,7 +10,7 @@ https://www.loom.com/share/efd8671db5d24d679f7e11427f34313a
 
 ## Try It Live
 
-Coming Soon...
+Coming Soon ...
 
 ## Dev Tools
 
