@@ -24,7 +24,7 @@ import OpenScreen from "./app/screens/OpenScreen";
 import SignupScreen from "./app/screens/SignupScreen";
 import SignInScreen from "./app/screens/SignInScreen";
 
-import {createStore} from 'redux'; 
+import { createStore } from 'redux'; 
 import { Provider } from 'react-redux';
 
 const rootReducer = (currentState= {user:'', items: []}, action) => {

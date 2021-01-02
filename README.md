@@ -8,10 +8,6 @@ Consumers are more conscious about the products they buy, but it is difficult to
 
 https://www.loom.com/share/efd8671db5d24d679f7e11427f34313a
 
-## Try It Live
-
-Coming Soon...
-
 ## Dev Tools
 
 #### Frontend
