@@ -25,30 +25,29 @@ const Profile = ({navigation}) => {
         })
     })
 
-    let naturalFiberData = naturalFiberArray.reduce(function(obj,b){
-        obj[b] = ++ obj[b] || 1
-        return obj
-    }, {})
+    // creates array with no repeat data
+    const createDataArray = (array) => {
+        return array.sort().reduce(function (obj, b){
+            obj[b] = ++ obj[b] || 1
+            return obj
+        }, {})
+    }
+
+    let naturalFiberData = createDataArray(naturalFiberArray)
+    let syntheticFiberyData = createDataArray(syntheticFiberArray)
+    let countryData = createDataArray(countryArray)
 
     let naturalGraphData = []
     for(const [key, value] of Object.entries(naturalFiberData)) {
         naturalGraphData.push({x: key, y: value})
     }
 
-    let syntheticFiberyData = syntheticFiberArray.sort().reduce(function(obj,b){
-        obj[b] = ++ obj[b] || 1
-        return obj
-    }, {})
 
     let syntheticGraphData = []
     for(const [key, value] of Object.entries(syntheticFiberyData)) {
         syntheticGraphData.push({x: key, y: value})
     }
 
-    let countryData = countryArray.sort().reduce(function(obj,b){
-        obj[b] = ++ obj[b] || 1
-        return obj
-    }, {})
 
     let countryGraphyData = []
     for(const [key, value] of Object.entries(countryData)) {
