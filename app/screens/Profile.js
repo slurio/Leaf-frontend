@@ -25,7 +25,7 @@ const Profile = ({navigation}) => {
         })
     })
 
-    // creates array with no repeat data
+    // creates array with no repeat keys but combines key values if there is a repeat
     const createDataArray = (array) => {
         return array.sort().reduce(function (obj, b){
             obj[b] = ++ obj[b] || 1
@@ -37,22 +37,22 @@ const Profile = ({navigation}) => {
     let syntheticFiberyData = createDataArray(syntheticFiberArray)
     let countryData = createDataArray(countryArray)
 
-    let naturalGraphData = []
-    for(const [key, value] of Object.entries(naturalFiberData)) {
-        naturalGraphData.push({x: key, y: value})
+
+    const createGraphData = (data, array) => {
+        for(const [key, value] of Object.entries(data)) {
+            array.push({x: key, y: value})
+        }
     }
 
+    let naturalGraphData = []
+    createGraphData(naturalFiberData, naturalGraphData)
 
     let syntheticGraphData = []
-    for(const [key, value] of Object.entries(syntheticFiberyData)) {
-        syntheticGraphData.push({x: key, y: value})
-    }
-
+    createGraphData(syntheticFiberyData, syntheticGraphData)
 
     let countryGraphyData = []
-    for(const [key, value] of Object.entries(countryData)) {
-        countryGraphyData.push({x: key, y: value})
-    }
+    createGraphData(countryData, countryGraphyData)
+
     
     const logOutUser = () => {
         dispatch(logOut())
