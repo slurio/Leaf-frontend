@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { ScrollView, View, Image, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 
 import {useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../redux/action';
@@ -8,7 +8,6 @@ import { logOut } from '../redux/action';
 import { VictoryPie } from "victory-native";
 
 const Profile = ({navigation}) => {
-    const screenWidth = Math.round(Dimensions.get('window').width)
     const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
     const items = useSelector(state => state.items)
     const dispatch = useDispatch()
@@ -76,8 +75,8 @@ const Profile = ({navigation}) => {
     let countryGraphColors = countryGraphyData.map(data => cssColors[Math.floor(Math.random() * cssColors.length)].toLowerCase())
 
     return(
-       <ScrollView style={{backgroundColor: '#fff'}}>
-           <View style={{margin: 20, marginLeft: -2,marginRight: -2, marginBottom:10}}>
+       <Container>
+           <ProfileTopContainer>
             <TopContainer>
                 <UserContainer>
                     <UserText>Logged in as <UsernameText>{username === undefined ? null : username.toUpperCase()}</UsernameText></UserText>
@@ -86,12 +85,13 @@ const Profile = ({navigation}) => {
                         <LogOutText>Log Out</LogOutText>
                     </LogOutButton>
             </TopContainer>
-                <View style={{marginLeft: 20, marginRight:20, marginTop:-4}}>
-                    <ProfileGreeting>Your closet overview, see how much natural and synthetic fibers make up your closet along with your clothing origins. </ProfileGreeting>
-                </View>
-            </View>
-            <View style={{flex:1, alignItems:'center'}}>
-                <Image style={{width: screenWidth, height:250, marginTop:20}} source={require('../assets/Profile.jpg')}/>
+                <ProfileGreeting>
+                    <GreetingText>Your closet overview, see how much natural and synthetic fibers make up your closet along with your clothing origins. </GreetingText>
+                </ProfileGreeting>
+            </ProfileTopContainer>
+            
+            <ChartContainer>
+                <ProfileImage source={require('../assets/Profile.jpg')}/>
                 <TopChartContainer>
                     <NaturalTitle>NATURAL FIBERS</NaturalTitle>
                     <VictoryPie
@@ -122,12 +122,36 @@ const Profile = ({navigation}) => {
                         style={{labels:{fontSize: 14, fill: 'black'}}}
                     />
                 </CountryChartContainer>
-            </View>
-       </ScrollView>
+            </ChartContainer>
+       </Container>
     )
 }
 
-export default Profile
+export default Profile;
+
+const Container = styled.ScrollView`
+    background-color: #fff;
+`
+
+const ProfileTopContainer = styled.View`
+    margin: 20px -2px;
+    margin-bottom: 10px;
+`
+
+const ProfileGreeting = styled.View`
+    margin: -4px 20px;
+`
+
+const ProfileImage = styled.Image`
+    width: ${Math.round(Dimensions.get('window').width)};
+    height: 250px;
+    margin-top: 20px;
+`
+
+const ChartContainer = styled.View`
+    flex: 1;
+    align-items: center;
+`
 
 const NaturalTitle = styled.Text`
     text-align: center;
@@ -180,7 +204,7 @@ const TopChartContainer = styled.View`
     margin-bottom: 14px;
 `
 
-const ProfileGreeting = styled.Text`
+const GreetingText = styled.Text`
     font-family: Raleway_400Regular_Italic;
     font-size: 18px;
     color: #222;    
