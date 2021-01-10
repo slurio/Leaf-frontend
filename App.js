@@ -31,9 +31,9 @@ const rootReducer = (currentState= {user:'', items: []}, action) => {
   if(action.type === "login user"){
     return {...currentState, user: action.payload, items: action.payload.items}
   } else if(action.type === "signup user"){
-    return {...currentState, newUser: action.payload}
+    return {...currentState, user: action.payload}
   }else if(action.type === "logout user"){
-    return {...currentState, newUser: '', user: ''}
+    return {...currentState, user: ''}
   }else if(action.type === "favorite item"){
     return {...currentState, items: [action.payload, ...currentState.items]}
   } else if(action.type === "delete item"){

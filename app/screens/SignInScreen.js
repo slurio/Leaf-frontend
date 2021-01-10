@@ -35,8 +35,7 @@ function SignInScreen({navigation}) {
         }
         fetch(`${HOST_WITH_PORT}/users/`, options)
         .then(resp=> resp.json())
-        .then(user => {console.log(user)
-        dispatch(loginUser(user))})
+        .then(user => dispatch(loginUser(user)))
     } 
 
     return(

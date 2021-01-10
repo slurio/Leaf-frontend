@@ -11,7 +11,7 @@ function SignupScreen({ navigation }) {
     const [name,setName] = useState('')
     const [password,setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
-    const newUser = useSelector(state => state.newUser)
+    const newUser = useSelector(state => state.user)
     const dispatch = useDispatch()
 
     useEffect(() => {

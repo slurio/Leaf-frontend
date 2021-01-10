@@ -8,13 +8,14 @@ import { logOut } from '../redux/action';
 import { VictoryPie } from "victory-native";
 
 const Profile = ({navigation}) => {
-    const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
+    const username = useSelector(state => state.user.name)
     const items = useSelector(state => state.items)
     const dispatch = useDispatch()
     const naturalFiberArray = []
     const syntheticFiberArray = []
     const countryArray = []
 
+    items ?
     items.map(item => {
         countryArray.push(item['country_fact']['country'].toUpperCase())
         item['item_fiber_facts'].map(fiber => {
@@ -22,7 +23,7 @@ const Profile = ({navigation}) => {
             naturalFiberArray.push(fiber['fiber_fact']['name'].toUpperCase())
             : syntheticFiberArray.push(fiber['fiber_fact']['name'].toUpperCase())
         })
-    })
+    }) : null
 
     // creates array with no repeat keys but combines key values if there is a repeat
     const createDataArray = (array) => {

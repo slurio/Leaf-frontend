@@ -8,7 +8,7 @@ import { HOST_WITH_PORT } from '../environment';
 const Home = () => {
     const [facts, setFacts] = useState([])
     const [randomFact,setRandomFact] = useState('')
-    const username = useSelector(state => state.user ? state.user.name : state.newUser.name)
+    const username = useSelector(state => state.user.name)
 
     useEffect(() => {
         fetch(`${HOST_WITH_PORT}/random_facts/`)
