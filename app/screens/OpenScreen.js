@@ -51,13 +51,10 @@ const LogInButton = styled.TouchableOpacity`
     margin-bottom: 20px;
 `
 
-const SignUpButton = styled.TouchableOpacity`
-    width: 160px;
-    height: 45px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+const SignUpButton = styled(LogInButton)`
     border: 2px solid #fff;
+    color: #fff;
+    background-color: transparent;
 `
 
 const StyledView = styled.ImageBackground`
