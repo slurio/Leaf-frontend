@@ -7,12 +7,12 @@ import { useSelector } from 'react-redux';
 const AllFavoritesScreen = ({navigation}) => {
     const [searchFilterItems, setSearchFilterItems] = useState('')
     const [searchTerm, setSearchTerm] = useState('')
-    const itemData = useSelector(state => state.items.sort())
-    const alphabetizeItems = itemData.sort(function(a,b){
+    const itemData = useSelector(state => state.items ? state.items.sort() : null)
+    const alphabetizeItems = itemData ? itemData.sort(function(a,b){
         if(a.title < b.title) { return -1; }
         if(a.title > b.title) { return 1; }
         return 0;
-    })
+    }) : null;
 
 
     const renderItem = ({item}) => {

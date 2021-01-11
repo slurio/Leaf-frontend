@@ -167,7 +167,7 @@ const StyledButtonText = styled.Text`
 
 const StyledTextInput = styled.TextInput`
     width: 250px;
-    height: 35px;
+    height: 45px;
     background-color: #ECECEC;
     margin: 10px;
     padding: 8px;
