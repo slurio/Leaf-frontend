@@ -9,10 +9,10 @@ function OpenScreen({ navigation }) {
                 <Logo>THE THREAD</Logo>
             </LogoContainer>
             <LogInButton onPress={()=> navigation.navigate('SignInScreen')}>
-                <StyledSignInText>LOGIN</StyledSignInText>
+                <LogInText>LOGIN</LogInText>
             </LogInButton>
             <SignUpButton onPress={()=> navigation.navigate('SignupScreen')}>
-                <StyledText>SIGN UP</StyledText>
+                <SignUpText>SIGN UP</SignUpText>
             </SignUpButton>
         </StyledView>
     )
@@ -26,19 +26,16 @@ const LogoImage = styled.Image`
     margin-bottom: 15px;
 `
 
-const StyledText = styled.Text`
-    color: #fff;
-    font-weight: bold;
-    font-size: 17px;
-    font-family: Raleway_700Bold;
-`
-
-const StyledSignInText = styled.Text`
+const LogInText = styled.Text`
     color: #222;
     font-weight: bold;
     font-size: 17px;
     font-family: Raleway_700Bold;
     letter-spacing: 2px;
+`
+
+const SignUpText = styled(LogInText)`
+    color: #fff;
 `
 
 const LogInButton = styled.TouchableOpacity`
