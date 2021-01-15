@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../redux/action';
@@ -7,6 +7,7 @@ import { loginUser } from '../redux/action';
 import { HOST_WITH_PORT } from '../environment';
 
 function SignInScreen({navigation}) {
+    
     const [userEmail,setUserEmail] = useState('')
     const [password,setPassword] = useState('')
     const user = useSelector(state => state.user)
@@ -75,36 +76,17 @@ function SignInScreen({navigation}) {
 
 export default SignInScreen;
 
-const Error = styled.Text`
-    font-size: 16px;
-    font-family: Raleway_600SemiBold;
-    color: red;
-`
+const StyledView = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+` 
 
 const StyledContainer = styled.View`
     top: 100px;
     align-items: center;
 `
-
- const SignUpContainer = styled.View`
-    margin-top: 15px;
-    flex: 1;
-    flex-direction: row;
-    color: #fff;
- `
-
- const StyledText = styled.Text`
-    font-size: 16px;
-    margin-right: 5px;
-    font-family: Raleway_300Light;
-    color: #222;
- `
-
- const Link = styled.Text`
-    font-size: 16px;
-    text-decoration-line: underline;
-    font-family: Raleway_600SemiBold;
- `
 
 const Logo = styled.Text`
     color: #222;
@@ -131,6 +113,23 @@ const Greeting = styled.Text`
     font-family: Raleway_300Light;
 `
 
+const Error = styled.Text`
+    font-size: 16px;
+    font-family: Raleway_600SemiBold;
+    color: red;
+`
+
+const StyledTextInput = styled.TextInput`
+    width: 250px;
+    height: 45px;
+    background-color: #ECECEC;
+    margin: 10px;
+    padding: 8px;
+    borderRadius: 14px;
+    font-size: 18px;
+    font-family: Raleway_300Light;
+`
+
 const Container = styled.TouchableOpacity`
     width: 100px;
     height: 100px;
@@ -147,21 +146,32 @@ const StyledButtonText = styled.Text`
     font-family: Raleway_500Medium;
 `
 
-
-const StyledTextInput = styled.TextInput`
-    width: 250px;
-    height: 45px;
-    background-color: #ECECEC;
-    margin: 10px;
-    padding: 8px;
-    borderRadius: 14px;
-    font-size: 18px;
-    font-family: Raleway_300Light;
-`
-
-const StyledView = styled.View`
+ const SignUpContainer = styled.View`
+    margin-top: 15px;
     flex: 1;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-` 
+    flex-direction: row;
+    color: #fff;
+ `
+
+ const StyledText = styled.Text`
+    font-size: 16px;
+    margin-right: 5px;
+    font-family: Raleway_300Light;
+    color: #222;
+ `
+
+ const Link = styled.Text`
+    font-size: 16px;
+    text-decoration-line: underline;
+    font-family: Raleway_600SemiBold;
+ `
+
+
+
+
+
+
+
+
+
+

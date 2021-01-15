@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled from 'styled-components';
 
-function OpenScreen({ navigation }) {  
+function OpenScreen({navigation}) {  
     return(
         <StyledView>
             <LogoContainer>
@@ -20,40 +20,6 @@ function OpenScreen({ navigation }) {
 
 export default OpenScreen;
 
-const LogoImage = styled.Image`
-    width: 130px;
-    height: 130px;
-    margin-bottom: 15px;
-`
-
-const LogInText = styled.Text`
-    color: #222;
-    font-weight: bold;
-    font-size: 17px;
-    font-family: Raleway_700Bold;
-    letter-spacing: 2px;
-`
-
-const SignUpText = styled(LogInText)`
-    color: #fff;
-`
-
-const LogInButton = styled.TouchableOpacity`
-    width: 160px;
-    height: 45px;
-    align-items: center;
-    justify-content: center;
-    background-color:#fff;
-    border-radius: 10px;
-    margin-bottom: 20px;
-`
-
-const SignUpButton = styled(LogInButton)`
-    border: 2px solid #fff;
-    color: #fff;
-    background-color: transparent;
-`
-
 const StyledView = styled.ImageBackground`
   flex: 1;
   justify-content: center;
@@ -66,9 +32,43 @@ const LogoContainer = styled.View`
     align-items: center;
 `
 
+const LogoImage = styled.Image`
+    width: 130px;
+    height: 130px;
+    margin-bottom: 15px;
+`
+
 const Logo = styled.Text`
     color: #fff;
     font-size: 44px;
     font-weight: 500;
     margin-bottom: 30px;
 `
+
+const LogInButton = styled.TouchableOpacity`
+    width: 160px;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+    background-color:#fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+`
+const LogInText = styled.Text`
+    color: #222;
+    font-weight: bold;
+    font-size: 17px;
+    font-family: Raleway_700Bold;
+    letter-spacing: 2px;
+`
+
+const SignUpButton = styled(LogInButton)`
+    border: 2px solid #fff;
+    color: #fff;
+    background-color: transparent;
+`
+
+const SignUpText = styled(LogInText)`
+    color: #fff;
+`
+
