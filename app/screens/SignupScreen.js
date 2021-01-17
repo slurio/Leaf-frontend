@@ -11,11 +11,12 @@ function SignupScreen({ navigation }) {
     const [name,setName] = useState('')
     const [password,setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
-    const newUser = useSelector(state => state.user)
+    const user = useSelector(state => state.user)
+    const newUser = useSelector(state => state.newUser)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(newUser){
+        if(user){
             setUsername('')
             setName('')
             setPassword('')

@@ -31,7 +31,7 @@ const rootReducer = (currentState= {user:'', items: []}, action) => {
   if(action.type === "login user"){
     return {...currentState, user: action.payload, items: action.payload.items}
   } else if(action.type === "signup user"){
-    return {...currentState, user: action.payload}
+    return {...currentState, user: action.payload, newUser: action.payload}
   }else if(action.type === "logout user"){
     return {...currentState, user: ''}
   }else if(action.type === "favorite item"){
@@ -41,7 +41,7 @@ const rootReducer = (currentState= {user:'', items: []}, action) => {
       deletedItem = array.find(item => item.id === action.payload.id)
       index = array.indexOf(deletedItem)
       array.splice(index, 1)
-      return{...currentState, items: array}
+      return {...currentState, items: array}
   }else {
     return currentState
   }
